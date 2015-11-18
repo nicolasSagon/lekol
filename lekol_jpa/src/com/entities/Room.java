@@ -6,12 +6,12 @@ import java.util.List;
 
 
 /**
- * The persistent class for the level database table.
+ * The persistent class for the room database table.
  * 
  */
 @Entity
-@NamedQuery(name="Level.findAll", query="SELECT l FROM Level l")
-public class Level implements Serializable {
+@NamedQuery(name="Room.findAll", query="SELECT r FROM Room r")
+public class Room implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -19,16 +19,15 @@ public class Level implements Serializable {
 
 	private String name;
 
+	//bi-directional many-to-one association to Activity
+	@OneToMany(mappedBy="room")
+	private List<Activity> activities;
+
 	//bi-directional many-to-one association to Class
-	@OneToMany(mappedBy="level")
+	@OneToMany(mappedBy="room")
 	private List<Class> clazzs;
 
-	//bi-directional many-to-one association to Cycle
-	@ManyToOne
-	@JoinColumn(name="cycleId")
-	private Cycle cycle;
-
-	public Level() {
+	public Room() {
 	}
 
 	public int getId() {
@@ -47,6 +46,28 @@ public class Level implements Serializable {
 		this.name = name;
 	}
 
+	public List<Activity> getActivities() {
+		return this.activities;
+	}
+
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
+	}
+
+	public Activity addActivity(Activity activity) {
+		getActivities().add(activity);
+		activity.setRoom(this);
+
+		return activity;
+	}
+
+	public Activity removeActivity(Activity activity) {
+		getActivities().remove(activity);
+		activity.setRoom(null);
+
+		return activity;
+	}
+
 	public List<Class> getClazzs() {
 		return this.clazzs;
 	}
@@ -57,24 +78,16 @@ public class Level implements Serializable {
 
 	public Class addClazz(Class clazz) {
 		getClazzs().add(clazz);
-		clazz.setLevel(this);
+		clazz.setRoom(this);
 
 		return clazz;
 	}
 
 	public Class removeClazz(Class clazz) {
 		getClazzs().remove(clazz);
-		clazz.setLevel(null);
+		clazz.setRoom(null);
 
 		return clazz;
-	}
-
-	public Cycle getCycle() {
-		return this.cycle;
-	}
-
-	public void setCycle(Cycle cycle) {
-		this.cycle = cycle;
 	}
 
 }
