@@ -1,4 +1,4 @@
-package com.controllers.level;
+package com.controllers;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;

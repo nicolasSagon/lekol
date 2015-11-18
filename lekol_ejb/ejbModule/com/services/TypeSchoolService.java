@@ -10,13 +10,14 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 
 import com.entities.School;
+import com.entities.TypeSchool;
 
 /**
  * Session Bean implementation class schoolService
  */
 @Stateless
 @LocalBean
-public class SchoolService implements SchoolServiceLocal {
+public class TypeSchoolService implements TypeSchoolServiceLocal {
 
 	@PersistenceContext(name = "lekol_app")
 	private EntityManager em;
@@ -24,21 +25,23 @@ public class SchoolService implements SchoolServiceLocal {
      * Default constructor. 
      * @return 
      */
-    public SchoolService() {
+    public TypeSchoolService() {
         // TODO Auto-generated constructor stub
     }
 
 	@Override
-	public void addSchool(School school) {
-		em.persist(school);
+	public void addTypeSchool(TypeSchool typeSchool) {
+		em.persist(typeSchool);
+		
 	}
-	
-	public List<School> getListSchool() {
+
+	@Override
+	public List<TypeSchool> getListTypeSchool() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<School> cq = cb.createQuery(School.class);
-        Root<School> rootEntry = cq.from(School.class);
-        CriteriaQuery<School> all = cq.select(rootEntry);
-        TypedQuery<School> allQuery = em.createQuery(all);
+        CriteriaQuery<TypeSchool> cq = cb.createQuery(TypeSchool.class);
+        Root<TypeSchool> rootEntry = cq.from(TypeSchool.class);
+        CriteriaQuery<TypeSchool> all = cq.select(rootEntry);
+        TypedQuery<TypeSchool> allQuery = em.createQuery(all);
         return allQuery.getResultList();
 	}
 	
