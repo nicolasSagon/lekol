@@ -16,11 +16,11 @@ public class TypeSchoolController {
 	@EJB
 	private TypeSchoolService service;
 	
-	public TypeSchool getSchool() {
+	public TypeSchool getTypeSchool() {
 		return typeSchool;
 	}
 
-	public void setSchool(TypeSchool typeSchool) {
+	public void setTypeSchool(TypeSchool typeSchool) {
 		this.typeSchool = typeSchool;
 	}
 	
