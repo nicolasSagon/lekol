@@ -1,9 +1,12 @@
 package com.controllers;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
 import com.entities.Cycle;
+import com.entities.TypeSchool;
 import com.services.CycleService;
 
 @ManagedBean
@@ -22,7 +25,11 @@ public class CycleController {
 		this.cycle = cycle;
 	}
 
-	public void saveLevel(Cycle cycle) {
+	public List<Cycle> getListCycle() {
+		return service.getListCycle();
+	}
+	
+	public void saveCycle(Cycle cycle) {
 		service.addCycle(cycle);
 	}
 	
