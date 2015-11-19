@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+<meta charset="UTF-8"></meta>
+<title>Ajout d'un type d'écoles</title>
+</h:head>
+<body>
+	<h1>Ajout d'un type d'écoles :</h1>
+
+	<h:form>
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:outputLabel value="Nom" />
+			<p:inputText value="#{typeSchoolController.typeSchool.name}"></p:inputText>
+			<p:commandButton value="Save"
+				action="#{typeSchoolController.saveTypeSchool(typeSchoolController.typeSchool)}"></p:commandButton>
+		</h:panelGrid>
+	</h:form>
+</body>
+</html>
