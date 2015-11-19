@@ -44,4 +44,15 @@ public class CycleService implements CycleServiceLocal {
         return allQuery.getResultList();
 	}
 
+	@Override
+	public void deleteCycle(Cycle cycle) {
+		em.remove(cycle);
+	}
+
+	@Override
+	public void updateCycle(Cycle cycle) {
+		em.merge(cycle);
+		
+	}
+
 }
