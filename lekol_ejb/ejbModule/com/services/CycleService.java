@@ -46,7 +46,7 @@ public class CycleService implements CycleServiceLocal {
 
 	@Override
 	public void deleteCycle(Cycle cycle) {
-		em.remove(cycle);
+		em.remove(em.contains(cycle) ? cycle : em.merge(cycle));
 	}
 
 	@Override

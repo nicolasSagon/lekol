@@ -28,7 +28,7 @@ public class PaymentService implements PaymentServiceLocal{
 	}
 	@Override
 	public void addPayment(Payment payment) {
-		em.persist(payment);
+		em.remove(em.contains(payment) ? payment : em.merge(payment));
 	}
 	
 
