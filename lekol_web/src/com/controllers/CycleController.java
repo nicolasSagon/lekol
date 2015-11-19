@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
 import com.entities.Cycle;
-import com.entities.TypeSchool;
 import com.services.CycleService;
 
 @ManagedBean

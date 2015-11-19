@@ -11,47 +11,44 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.entities.Cycle;
-
+import com.entities.Payment;
 /**
  * Session Bean implementation class levelService
  */
 @Stateless
 @LocalBean
-public class CycleService implements CycleServiceLocal {
-
+public class PaymentService implements PaymentServiceLocal{
 	@PersistenceContext(name = "lekol_app")
 	private EntityManager em;
     /**
      * Default constructor. 
      */
-    public CycleService() {
-        // TODO Auto-generated constructor stub
-    }
-
+	public PaymentService(){
+		
+	}
 	@Override
-	public void addCycle(Cycle cycle) {
-		em.persist(cycle);
+	public void addPayment(Payment payment) {
+		em.remove(em.contains(payment) ? payment : em.merge(payment));
 	}
 	
+
 	@Override
-	public List<Cycle> getListCycle() {
+	public List<Payment> getListPayment() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Cycle> cq = cb.createQuery(Cycle.class);
-        Root<Cycle> rootEntry = cq.from(Cycle.class);
-        CriteriaQuery<Cycle> all = cq.select(rootEntry);
-        TypedQuery<Cycle> allQuery = em.createQuery(all);
+        CriteriaQuery<Payment> cq = cb.createQuery(Payment.class);
+        Root<Payment> rootEntry = cq.from(Payment.class);
+        CriteriaQuery<Payment> all = cq.select(rootEntry);
+        TypedQuery<Payment> allQuery = em.createQuery(all);
         return allQuery.getResultList();
 	}
-
 	@Override
-	public void deleteCycle(Cycle cycle) {
-		em.remove(em.contains(cycle) ? cycle : em.merge(cycle));
+	public void deletePayment(Payment payment) {
+		em.remove(payment);
+		
 	}
-
 	@Override
-	public void updateCycle(Cycle cycle) {
-		em.merge(cycle);
+	public void updatePayment(Payment payment) {
+		em.merge(payment);
 		
 	}
 
