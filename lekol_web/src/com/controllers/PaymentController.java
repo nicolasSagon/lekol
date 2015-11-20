@@ -12,7 +12,7 @@ import com.services.PaymentService;
 public class PaymentController {
 
 	private Payment payment = new Payment();
-
+	private String[] modes = {"CB","Cheque","Espèces"};
 	@EJB
 	private PaymentService service;
 	
@@ -34,6 +34,14 @@ public class PaymentController {
 	
 	public void savePayment(Payment payment) {
 		service.addPayment(payment);
+	}
+
+	public String[] getModes() {
+		return modes;
+	}
+
+	public void setModes(String[] modes) {
+		this.modes = modes;
 	}
 	
 }

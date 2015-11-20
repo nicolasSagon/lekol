@@ -7,12 +7,25 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
 <meta charset="UTF-8"></meta>
-<title>Ajout d'un payment</title>
+<title>Liste des payments</title>
 </h:head>
 <body>
+<h:form>
+	<h1>Liste des payments :</h1>
+
+	<p:dataTable var="paymentvar" value="#{paymentController.getListPayment()}">
+		<p:column headerText="Id">
+			<h:outputText value="#{paymentvar.id}" />
+		</p:column>
+
+		<p:column headerText="Name">
+			<h:outputText value="#{paymentvar.mode}" />
+		</p:column>
+	</p:dataTable>
+	
 	<h1>Ajout d'un payment :</h1>
 
-	<h:form>
+	
 		<h:panelGrid columns="2" cellpadding="5">
 			<p:outputLabel for="freq" value="Fréquence" />
 			<p:spinner id="freq" value="#{paymentController.payment.frequency}" />
