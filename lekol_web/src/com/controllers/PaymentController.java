@@ -25,7 +25,11 @@ public class PaymentController {
 	}
 
 	public List<Payment> getListPayment() {
-		return service.getListPayment();
+		
+		List<Payment> payments  = service.getListPayment();
+		for(Payment p : payments)
+			System.out.println(p.getId());
+		return payments;
 	}
 	
 	public void savePayment(Payment payment) {

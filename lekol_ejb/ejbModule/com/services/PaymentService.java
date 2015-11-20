@@ -6,6 +6,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -34,12 +35,14 @@ public class PaymentService implements PaymentServiceLocal{
 
 	@Override
 	public List<Payment> getListPayment() {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
+		/*CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Payment> cq = cb.createQuery(Payment.class);
         Root<Payment> rootEntry = cq.from(Payment.class);
         CriteriaQuery<Payment> all = cq.select(rootEntry);
         TypedQuery<Payment> allQuery = em.createQuery(all);
-        return allQuery.getResultList();
+        System.out.println(allQuery.toString());
+		*/
+		return em.createNamedQuery("Payment.findAll").getResultList();
 	}
 	@Override
 	public void deletePayment(Payment payment) {
