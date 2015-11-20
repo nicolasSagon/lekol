@@ -1,12 +1,14 @@
 package com.controllers;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.model.SelectItem;
 
 import com.entities.Cycle;
-import com.entities.TypeSchool;
 import com.services.CycleService;
 
 @ManagedBean
@@ -31,6 +33,20 @@ public class CycleController {
 	
 	public void saveCycle(Cycle cycle) {
 		service.addCycle(cycle);
+	}
+	
+	public SelectItem convertToSelectItem(Cycle cycle) {
+		SelectItem item = new SelectItem();
+		item.setLabel(cycle.getName());
+		item.setValue(cycle.getId());
+		return item;
+	}
+	
+	public List<SelectItem> convertToListSelectItem(List<Cycle> lstCycle) {
+		List<SelectItem> list = new ArrayList<SelectItem>();
+		for(Cycle cycle : lstCycle)
+			list.add(convertToSelectItem(cycle));
+		return list;
 	}
 	
 }

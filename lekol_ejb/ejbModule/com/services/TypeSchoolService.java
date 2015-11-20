@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 
-import com.entities.School;
 import com.entities.TypeSchool;
 
 /**

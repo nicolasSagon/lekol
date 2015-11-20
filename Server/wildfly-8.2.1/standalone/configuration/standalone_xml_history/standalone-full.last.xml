@@ -150,11 +150,10 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:/mysql" pool-name="mysqlDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://sql4.freemysqlhosting.net:3306/sql496692</connection-url>
+                    <connection-url>jdbc:mysql://localhost:3306/lekol</connection-url>
                     <driver>mysqlDriver</driver>
                     <security>
-                        <user-name>sql496692</user-name>
-                        <password>svAITBuCYn</password>
+                        <user-name>root</user-name>
                     </security>
                 </datasource>
                 <drivers>

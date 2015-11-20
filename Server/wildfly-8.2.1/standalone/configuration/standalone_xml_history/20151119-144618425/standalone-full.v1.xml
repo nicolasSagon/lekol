@@ -154,6 +154,7 @@
                     <driver>mysqlDriver</driver>
                     <security>
                         <user-name>root</user-name>
+                        <password></password>
                     </security>
                 </datasource>
                 <drivers>

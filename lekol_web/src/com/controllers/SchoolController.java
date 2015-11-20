@@ -5,9 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
-import com.entities.Cycle;
 import com.entities.School;
-import com.services.CycleService;
 import com.services.SchoolService;
 
 @ManagedBean
