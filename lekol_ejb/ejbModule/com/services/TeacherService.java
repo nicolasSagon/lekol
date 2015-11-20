@@ -46,9 +46,13 @@ public class TeacherService implements TeacherServiceLocal {
 
 	@Override
 	public void deleteTeacher(Teacher teacher) {
-		em.getTransaction().begin();
-		em.remove(teacher);
-		em.getTransaction().commit();
+		//em.getTransaction().begin();
+		//em.refresh(teacher);
+		Teacher tea = em.find(Teacher.class, teacher.getId());
+		em.merge(tea);
+		em.refresh(tea);
+		em.remove(tea);
+		//em.getTransaction().commit();
 	}
 
 	@Override

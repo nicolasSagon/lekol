@@ -21,6 +21,11 @@
 		<p:column headerText="Name">
 			<h:outputText value="#{cyclevar.name}" />
 		</p:column>
+		
+		<p:column headerText="Actions">
+			<p:commandButton update="@form" value="Delete"
+				action="#{cycleController.deleteCycle(cyclevar)}"></p:commandButton>
+		</p:column>
 	</p:dataTable>
 	
 	<h1>Ajout d'un cycle :</h1>

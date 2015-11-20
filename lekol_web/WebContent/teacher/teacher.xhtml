@@ -25,6 +25,11 @@
 		<p:column headerText="Last Name">
 			<h:outputText value="#{teach.lastName}" />
 		</p:column>
+		
+		<p:column headerText="Actions">
+			<p:commandButton update="@form" value="Delete"
+				action="#{teacherController.deleteTeacher(teach)}"></p:commandButton>
+		</p:column>
 	</p:dataTable>
 	
 	<h1>Ajout d'un professeur :</h1>

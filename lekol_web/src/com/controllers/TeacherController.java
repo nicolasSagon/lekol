@@ -32,4 +32,8 @@ public class TeacherController {
 		service.addTeacher(teacher);
 	}
 	
+	public void deleteTeacher(Teacher teacher){
+		service.deleteTeacher(teacher);
+	}
+	
 }

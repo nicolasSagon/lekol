@@ -32,4 +32,8 @@ public class CycleController {
 		service.addCycle(cycle);
 	}
 	
+	public void deleteCycle(Cycle cycle){
+		service.deleteCycle(cycle);
+	}
+	
 }

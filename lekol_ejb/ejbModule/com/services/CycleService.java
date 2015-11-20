@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import com.entities.Cycle;
+import com.entities.Teacher;
 
 /**
  * Session Bean implementation class levelService
@@ -46,8 +47,13 @@ public class CycleService implements CycleServiceLocal {
 
 	@Override
 	public void deleteCycle(Cycle cycle) {
-		em.remove(em.contains(cycle) ? cycle : em.merge(cycle));
+		//em.remove(em.contains(cycle) ? cycle : em.merge(cycle));
+		Cycle cy = em.find(Cycle.class, cycle.getId());
+		em.merge(cy);
+		em.refresh(cy);
+		em.remove(cy);
 	}
+	
 
 	@Override
 	public void updateCycle(Cycle cycle) {
