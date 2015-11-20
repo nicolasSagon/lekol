@@ -15,16 +15,9 @@
 	<h:form>
 		<h:panelGrid columns="2" cellpadding="5">
 			<p:outputLabel value="Nom" />
-			<p:inputText value="#{typeSchoolController.typeSchool.name}"></p:inputText>
+			<p:inputText value=""></p:inputText>
 			<p:commandButton value="Save"
-				action="#{typeSchoolController.saveTypeSchool(typeSchoolController.typeSchool)}"
-				ajax="false"></p:commandButton>
-			<p:commandButton value="Save"
-				action="#{typeSchoolController.saveTypeSchool(typeSchoolController.typeSchool)}"
-				ajax="false"></p:commandButton>
-			<p:commandButton value="retour" id="return"
-				action="show_list_type_school.xhtml?faces-redirect=true"
-				icon="ui-icon-arrowreturnthick-1-n" ajax="false" />
+				action="#{typeSchoolController.modifyTypeSchool(w)}"></p:commandButton>
 		</h:panelGrid>
 	</h:form>
 </body>
