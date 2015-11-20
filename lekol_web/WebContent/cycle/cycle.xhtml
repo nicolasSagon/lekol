@@ -10,6 +10,7 @@
 <title>Liste des Cycles</title>
 </h:head>
 <body>
+<h:form>
 	<h1>Liste des Cycles :</h1>
 
 	<p:dataTable var="cyclevar" value="#{cycleController.getListCycle()}">
@@ -24,11 +25,11 @@
 	
 	<h1>Ajout d'un cycle :</h1>
 
-	<h:form>
+	
 		<h:panelGrid columns="2" cellpadding="5">
 			<p:outputLabel value="Nom" />
 			<p:inputText value="#{cycleController.cycle.name}"></p:inputText>
-			<p:commandButton value="Save"
+			<p:commandButton update="@form" value="Save"
 				action="#{cycleController.saveCycle(cycleController.cycle)}"></p:commandButton>
 		</h:panelGrid>
 	</h:form>

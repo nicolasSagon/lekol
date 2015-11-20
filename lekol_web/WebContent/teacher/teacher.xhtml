@@ -10,6 +10,7 @@
 <title>Liste des profs</title>
 </h:head>
 <body>
+<h:form>
 	<h1>Liste des profs :</h1>
 
 	<p:dataTable var="teach" value="#{teacherController.getListTeacher()}">
@@ -28,13 +29,13 @@
 	
 	<h1>Ajout d'un professeur :</h1>
 
-	<h:form>
+	
 		<h:panelGrid columns="2" cellpadding="5">
 			<p:outputLabel value="Prénom" />
 			<p:inputText value="#{teacherController.teacher.firstName}"></p:inputText>
 			<p:outputLabel value="Nom" />
 			<p:inputText value="#{teacherController.teacher.lastName}"></p:inputText>
-			<p:commandButton value="Save"
+			<p:commandButton update="@form" value="Save"
 				action="#{teacherController.saveTeacher(teacherController.teacher)}"></p:commandButton>
 		</h:panelGrid>
 	</h:form>
