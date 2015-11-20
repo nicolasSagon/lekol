@@ -10,8 +10,7 @@ local.properties
 .settings/
 .loadpath
 
-Server/wildfly-8.2.1/bin/*
-Server/wildfly-8.2.1/standalone/*
+Server
 
 
 # Eclipse Core
