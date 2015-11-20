@@ -21,5 +21,16 @@
 			<h:outputText value="#{cyclevar.name}" />
 		</p:column>
 	</p:dataTable>
+	
+	<h1>Ajout d'un cycle :</h1>
+
+	<h:form>
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:outputLabel value="Nom" />
+			<p:inputText value="#{cycleController.cycle.name}"></p:inputText>
+			<p:commandButton value="Save"
+				action="#{cycleController.saveCycle(cycleController.cycle)}"></p:commandButton>
+		</h:panelGrid>
+	</h:form>
 </body>
 </html>
