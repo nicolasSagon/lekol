@@ -6,8 +6,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
-<meta charset="UTF-8"></meta>
-<title>Ajout d'un type d'écoles</title>
+	<meta charset="UTF-8"></meta>
+	<title>Ajout d'un type d'écoles</title>
 </h:head>
 <body>
 	<h1>Ajout d'un type d'écoles :</h1>
@@ -17,7 +17,14 @@
 			<p:outputLabel value="Nom" />
 			<p:inputText value="#{typeSchoolController.typeSchool.name}"></p:inputText>
 			<p:commandButton value="Save"
-				action="#{typeSchoolController.saveTypeSchool(typeSchoolController.typeSchool)}"></p:commandButton>
+				action="#{typeSchoolController.saveTypeSchool(typeSchoolController.typeSchool)}"
+				ajax="false"></p:commandButton>
+			<p:commandButton value="Save"
+				action="#{typeSchoolController.saveTypeSchool(typeSchoolController.typeSchool)}"
+				ajax="false"></p:commandButton>
+			<p:commandButton value="retour" id="return"
+				action="show_list_type_school.xhtml?faces-redirect=true"
+				icon="ui-icon-arrowreturnthick-1-n" ajax="false" />
 		</h:panelGrid>
 	</h:form>
 </body>

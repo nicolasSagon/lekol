@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 
 import com.entities.Cycle;
 import com.entities.School;
+import com.entities.TypeSchool;
 import com.services.CycleService;
 import com.services.SchoolService;
 
@@ -30,8 +31,10 @@ public class SchoolController {
 		return service.getListSchool();
 	}
 
-	public void saveSchool(School school) {
-		service.addSchool(school);
+	public void saveSchool(School schoolTmp, int typeSchoolId) {
+		TypeSchoolController tyeSchoolController = new TypeSchoolController();
+		schoolTmp.setTypeSchool(tyeSchoolController.getTypeById(typeSchoolId));
+		service.addSchool(schoolTmp);
 	}
 	
 }
