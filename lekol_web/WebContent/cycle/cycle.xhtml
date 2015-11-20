@@ -7,16 +7,29 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
 <meta charset="UTF-8"></meta>
-<title>Ajout d'un cycle</title>
+<title>Liste des Cycles</title>
 </h:head>
 <body>
+<h:form>
+	<h1>Liste des Cycles :</h1>
+
+	<p:dataTable var="cyclevar" value="#{cycleController.getListCycle()}">
+		<p:column headerText="Id">
+			<h:outputText value="#{cyclevar.id}" />
+		</p:column>
+
+		<p:column headerText="Name">
+			<h:outputText value="#{cyclevar.name}" />
+		</p:column>
+	</p:dataTable>
+	
 	<h1>Ajout d'un cycle :</h1>
 
-	<h:form>
+	
 		<h:panelGrid columns="2" cellpadding="5">
 			<p:outputLabel value="Nom" />
 			<p:inputText value="#{cycleController.cycle.name}"></p:inputText>
-			<p:commandButton value="Save"
+			<p:commandButton update="@form" value="Save"
 				action="#{cycleController.saveCycle(cycleController.cycle)}"></p:commandButton>
 		</h:panelGrid>
 	</h:form>

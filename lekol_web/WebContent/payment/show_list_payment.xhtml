@@ -7,18 +7,18 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
 <meta charset="UTF-8"></meta>
-<title>Liste des Cycles</title>
+<title>Liste des payments</title>
 </h:head>
 <body>
-	<h1>Liste des Cycles :</h1>
+	<h1>Liste des payments :</h1>
 
-	<p:dataTable var="cyclevar" value="#{cycleController.getListCycle()}">
+	<p:dataTable var="paymentvar" value="#{paymentController.getListPayment()}">
 		<p:column headerText="Id">
-			<h:outputText value="#{cyclevar.id}" />
+			<h:outputText value="#{paymentvar.id}" />
 		</p:column>
 
 		<p:column headerText="Name">
-			<h:outputText value="#{cyclevar.name}" />
+			<h:outputText value="#{paymentvar.mode}" />
 		</p:column>
 	</p:dataTable>
 </body>

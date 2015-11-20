@@ -11,47 +11,47 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.entities.Cycle;
+import com.entities.Cheque;
 
 /**
  * Session Bean implementation class levelService
  */
 @Stateless
 @LocalBean
-public class CycleService implements CycleServiceLocal {
+public class ChequeService implements ChequeServiceLocal {
 
 	@PersistenceContext(name = "lekol_app")
 	private EntityManager em;
     /**
      * Default constructor. 
      */
-    public CycleService() {
+    public ChequeService() {
         // TODO Auto-generated constructor stub
     }
 
 	@Override
-	public void addCycle(Cycle cycle) {
-		em.persist(cycle);
+	public void addCheque(Cheque cheque) {
+		em.persist(cheque);
 	}
 	
 	@Override
-	public List<Cycle> getListCycle() {
+	public List<Cheque> getListCheque() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Cycle> cq = cb.createQuery(Cycle.class);
-        Root<Cycle> rootEntry = cq.from(Cycle.class);
-        CriteriaQuery<Cycle> all = cq.select(rootEntry);
-        TypedQuery<Cycle> allQuery = em.createQuery(all);
+        CriteriaQuery<Cheque> cq = cb.createQuery(Cheque.class);
+        Root<Cheque> rootEntry = cq.from(Cheque.class);
+        CriteriaQuery<Cheque> all = cq.select(rootEntry);
+        TypedQuery<Cheque> allQuery = em.createQuery(all);
         return allQuery.getResultList();
 	}
 
 	@Override
-	public void deleteCycle(Cycle cycle) {
-		em.remove(em.contains(cycle) ? cycle : em.merge(cycle));
+	public void deleteCheque(Cheque cheque) {
+		em.remove(em.contains(cheque) ? cheque : em.merge(cheque));
 	}
 
 	@Override
-	public void updateCycle(Cycle cycle) {
-		em.merge(cycle);
+	public void updateCheque(Cheque cheque) {
+		em.merge(cheque);
 		
 	}
 
