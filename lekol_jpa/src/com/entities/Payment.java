@@ -2,7 +2,6 @@ package com.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -15,20 +14,17 @@ public class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private int frequency;
 
 	private String mode;
 
-	//bi-directional many-to-one association to Family
-	@OneToMany(mappedBy="payment")
-	private List<Family> families;
-
-	//bi-directional many-to-one association to Check
+	//bi-directional many-to-one association to Cheque
 	@ManyToOne
-	@JoinColumn(name="checkId")
-	private Check check;
+	@JoinColumn(name="chequeId")
+	private Cheque cheque;
 
 	public Payment() {
 	}
@@ -57,34 +53,12 @@ public class Payment implements Serializable {
 		this.mode = mode;
 	}
 
-	public List<Family> getFamilies() {
-		return this.families;
+	public Cheque getCheque() {
+		return this.cheque;
 	}
 
-	public void setFamilies(List<Family> families) {
-		this.families = families;
-	}
-
-	public Family addFamily(Family family) {
-		getFamilies().add(family);
-		family.setPayment(this);
-
-		return family;
-	}
-
-	public Family removeFamily(Family family) {
-		getFamilies().remove(family);
-		family.setPayment(null);
-
-		return family;
-	}
-
-	public Check getCheck() {
-		return this.check;
-	}
-
-	public void setCheck(Check check) {
-		this.check = check;
+	public void setCheque(Cheque cheque) {
+		this.cheque = cheque;
 	}
 
 }
