@@ -12,5 +12,9 @@ public interface UserServiceLocal {
 	public void addUser(User user);
 	
 	public List<User> getListUser();
+
+	User getUser(int id);
+
+	void saveUser(User user);
 	
 }

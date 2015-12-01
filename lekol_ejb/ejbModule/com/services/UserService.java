@@ -44,4 +44,14 @@ public class UserService implements UserServiceLocal {
         return allQuery.getResultList();
 	}
 	
+	@Override
+	public User getUser(int id) {
+		User user = em.find(User.class, id);
+		return user;
+	}
+	
+	@Override
+	public void saveUser(User user) {
+			em.merge(user);	
+	}
 }
