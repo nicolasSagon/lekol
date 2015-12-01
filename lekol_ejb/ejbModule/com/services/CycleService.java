@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import com.entities.Cycle;
-import com.entities.Teacher;
 
 /**
  * Session Bean implementation class levelService

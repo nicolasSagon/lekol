@@ -35,10 +35,9 @@ public class CycleController {
 		service.addCycle(cycle);
 	}
 	
-<<<<<<< HEAD
 	public void deleteCycle(Cycle cycle){
 		service.deleteCycle(cycle);
-=======
+	}
 	public SelectItem convertToSelectItem(Cycle cycle) {
 		SelectItem item = new SelectItem();
 		item.setLabel(cycle.getName());
@@ -51,7 +50,6 @@ public class CycleController {
 		for(Cycle cycle : lstCycle)
 			list.add(convertToSelectItem(cycle));
 		return list;
->>>>>>> origin/master
 	}
 	
 }

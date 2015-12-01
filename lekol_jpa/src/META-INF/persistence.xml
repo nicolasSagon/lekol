@@ -3,7 +3,7 @@
 	<persistence-unit name="lekol_app">
 		<jta-data-source>java:/mysql</jta-data-source>
 		<class>com.entities.Activity</class>
-		<class>com.entities.Check</class>
+		<class>com.entities.Cheque</class>
 		<class>com.entities.Child</class>
 		<class>com.entities.Class</class>
 		<class>com.entities.Cycle</class>
