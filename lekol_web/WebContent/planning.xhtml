@@ -18,14 +18,16 @@
 			<p:schedule id="schedule" value="#{scheduleController.eventModel}"
 				widgetVar="myschedule" timeZone="GMT+2">
 
-				<p:ajax event="dateSelect" listener="#{scheduleController.onDateSelect}"
+				<p:ajax event="dateSelect"
+					listener="#{scheduleController.onDateSelect}" update="eventDetails"
+					oncomplete="PF('eventDialog').show();" />
+				<p:ajax event="eventSelect"
+					listener="#{scheduleController.onEventSelect}"
 					update="eventDetails" oncomplete="PF('eventDialog').show();" />
-				<p:ajax event="eventSelect" listener="#{scheduleController.onEventSelect}"
-					update="eventDetails" oncomplete="PF('eventDialog').show();" />
-				<p:ajax event="eventMove" listener="#{scheduleController.onEventMove}"
-					update="messages" />
-				<p:ajax event="eventResize" listener="#{scheduleController.onEventResize}"
-					update="messages" />
+				<p:ajax event="eventMove"
+					listener="#{scheduleController.onEventMove}" update="messages" />
+				<p:ajax event="eventResize"
+					listener="#{scheduleController.onEventResize}" update="messages" />
 
 			</p:schedule>
 		</h:panelGrid>
@@ -34,11 +36,15 @@
 			showEffect="clip" hideEffect="clip">
 			<h:panelGrid id="eventDetails" columns="2">
 				<p:outputLabel for="salle" value="Salle:" />
-				<p:inputText id="salle" value="#{scheduleController.event.classe.level.name}"
+				<p:inputText id="salle"
+					value="#{scheduleController.event.classe.level.name}"
 					required="true" />
-					<p:outputLabel for="prof" value="Prof:" />
-				<p:inputText id="prof" value="#{scheduleController.event.teacher.firstName}"
-					required="true" />
+				<p:outputLabel for="prof" value="Prof:" />
+				<h:selectOneMenu id="prof"
+					value="#{tscheduleController.event.teacher}">
+					<f:selectItems value="#{teacherController.listTeacher}" var="_teacher"
+						itemValue="#{_teacher.firstName}" itemLabel="#{_teacher.lastName}" />
+				</h:selectOneMenu>
 				<p:outputLabel for="title" value="Titles:" />
 				<p:inputText id="title" value="#{scheduleController.event.title}"
 					required="true" />
