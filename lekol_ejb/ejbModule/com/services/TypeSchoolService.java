@@ -10,6 +10,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 
 import com.entities.TypeSchool;
+import com.entities.TypeSchool;
+import com.entities.TypeSchool;
 
 /**
  * Session Bean implementation class schoolService
@@ -60,6 +62,18 @@ public class TypeSchoolService implements TypeSchoolServiceLocal {
 		TypeSchool tmp = em.find(TypeSchool.class, id);
 		return tmp;
 	}
-	
+
+	@Override
+	public void saveTypeSchool(TypeSchool typeSchool) {
+		TypeSchool l = this.getTypeSchool(typeSchool.getId());
+		l.setName(typeSchool.getName());
+		em.merge(l);	
+	}
+
+	@Override
+	public TypeSchool getTypeSchool(int id) {
+		TypeSchool TypeSchool = em.find(TypeSchool.class, id);
+		return TypeSchool;
+	}
 
 }

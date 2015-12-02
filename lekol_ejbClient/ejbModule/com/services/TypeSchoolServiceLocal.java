@@ -18,5 +18,9 @@ public interface TypeSchoolServiceLocal {
 	public TypeSchool getTypeById(int id);
 	
 	public List<TypeSchool> getListTypeSchool();
+
+	void saveTypeSchool(TypeSchool typeSchool);
+
+	public TypeSchool getTypeSchool(int id);
 	
 }

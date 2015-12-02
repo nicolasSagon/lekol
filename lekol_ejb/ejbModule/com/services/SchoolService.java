@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 
+import com.entities.Cycle;
+import com.entities.School;
 import com.entities.School;
 
 /**
@@ -33,6 +35,12 @@ public class SchoolService implements SchoolServiceLocal {
 		em.persist(school);
 	}
 	
+	@Override
+	public School getSchool(int id) {
+		School school = em.find(School.class, id);
+		return school;
+	}
+	
 	public List<School> getListSchool() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<School> cq = cb.createQuery(School.class);
@@ -40,6 +48,13 @@ public class SchoolService implements SchoolServiceLocal {
         CriteriaQuery<School> all = cq.select(rootEntry);
         TypedQuery<School> allQuery = em.createQuery(all);
         return allQuery.getResultList();
+	}
+	
+	@Override
+	public void saveSchool(School school) {
+		School l = this.getSchool(school.getId());
+		l.setName(school.getName());
+		em.merge(l);	
 	}
 	
 }

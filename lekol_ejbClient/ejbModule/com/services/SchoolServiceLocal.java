@@ -12,5 +12,9 @@ public interface SchoolServiceLocal {
 	public void addSchool(School school);
 	
 	public List<School> getListSchool();
+
+	void saveSchool(School school);
+
+	School getSchool(int id);
 	
 }

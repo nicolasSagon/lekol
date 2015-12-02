@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<meta charset="UTF-8"></meta>
+	<title>Liste des Ecoles</title>
+</h:head>
+<body>
+	<h:form id="form">
+		<h1>Liste des Ecoles :</h1>
+
+		<p:dataTable id="gridSchool" var="school"
+			value="#{schoolController.listSchool}" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="10,20,50" rows="10">
+
+			<p:column headerText="Nom">
+				<h:outputText value="#{school.name}" />
+			</p:column>
+
+			<p:column headerText="Adresse">
+				<h:outputText value="#{school.address}" />
+			</p:column>
+
+			<p:column headerText="téléphone">
+				<h:outputText value="#{school.phone}" />
+			</p:column>
+
+			<p:column headerText="fax">
+				<h:outputText value="#{school.fax}" />
+			</p:column>
+
+			<p:column headerText="nom directeur">
+				<h:outputText value="#{school.directorName}" />
+			</p:column>
+
+			<p:column headerText="mail directeur">
+				<h:outputText value="#{school.directorMail}" />
+			</p:column>
+
+			<p:column headerText="téléphone directeur">
+				<h:outputText value="#{school.directPhone}" />
+			</p:column>
+
+			<p:column headerText="type">
+				<h:outputText value="#{school.typeSchool.name}" />
+			</p:column>
+
+			<p:column headerText="surface">
+				<h:outputText value="#{school.surface}" />
+			</p:column>
+
+			<p:column headerText="nombre classes">
+				<h:outputText value="#{school.numberRoom}" />
+			</p:column>
+			<p:column headerText="Options">
+				<p:commandButton update=":form:editSchoolPanel" value="Modifier"
+					oncomplete="PF('editSchoolDialog').show()">
+					<f:setPropertyActionListener value="#{School}"
+						target="#{schoolController.editSchool}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+		<p:commandButton update=":form:createSchoolPanel"
+			value="Créer une nouvelle école "
+			oncomplete="PF('createSchoolDialog').show()">
+		</p:commandButton>
+
+		<p:dialog header="Modifier une écoles" widgetVar="editSchoolDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="editSchoolPanel" style="text-align:center;">
+				<p:panelGrid columns="2" cellpadding="5"
+					rendered="#{not empty schoolController.editSchool}">
+					<p:outputLabel value="Nom:" />
+					<p:inputText value="#{schoolController.editSchool.name}" />
+					<p:outputLabel value="Adresse:" />
+					<p:inputText value="#{schoolController.editSchool.address}" />
+					<p:outputLabel value="Téléphone:" />
+					<p:inputText value="#{schoolController.editSchool.phone}" />
+					<p:outputLabel value="Fax:" />
+					<p:inputText value="#{schoolController.editSchool.fax}" />
+					<p:outputLabel value="Nom du directeur:" />
+					<p:inputText value="#{schoolController.editSchool.directorName}" />
+					<p:outputLabel value="Email du directeur:" />
+					<p:inputText value="#{schoolController.editSchool.directorMail}" />
+					<p:outputLabel value="Téléphone du directeur:" />
+					<p:inputText value="#{schoolController.editSchool.directPhone}" />
+					<p:outputLabel value="type" />
+					<p:selectOneMenu id="type_school_edit"
+						value="#{typeSchoolController.typeSchool.id}">
+						<f:selectItem itemLabel="Sélectionner un type" itemValue="" />
+						<f:selectItems
+							value="#{typeSchoolController.getListSelectItem(typeSchoolController.listTypeSchool)}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="Suface:" />
+					<p:inputText value="#{schoolController.editSchool.surface}" />
+					<p:outputLabel value="Nombre de classes:" />
+					<p:inputText value="#{schoolController.editSchool.numberRoom}" />
+					<h:inputHidden value="#{schoolController.editSchool.id}" />
+					<p:commandButton update=":form:gridSchool" value="Modifier"
+						action="#{schoolController.editSchool(schoolController.editSchool)}"
+						oncomplete="PF('editSchoolDialog').hide()">
+					</p:commandButton>
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+
+		<p:dialog header="Créer une école" widgetVar="createSchoolDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="createSchoolPanel" style="text-align:center;">
+				<p:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel value="Nom:" />
+					<p:inputText value="#{schoolController.addSchool.name}" />
+					<p:outputLabel value="Adresse:" />
+					<p:inputText value="#{schoolController.addSchool.address}" />
+					<p:outputLabel value="Téléphone:" />
+					<p:inputText value="#{schoolController.addSchool.phone}" />
+					<p:outputLabel value="Fax:" />
+					<p:inputText value="#{schoolController.addSchool.fax}" />
+					<p:outputLabel value="Nom du directeur:" />
+					<p:inputText value="#{schoolController.addSchool.directorName}" />
+					<p:outputLabel value="Email du directeur:" />
+					<p:inputText value="#{schoolController.addSchool.directorMail}" />
+					<p:outputLabel value="Téléphone du directeur:" />
+					<p:inputText value="#{schoolController.addSchool.directPhone}" />
+					<p:outputLabel value="type" />
+					<p:selectOneMenu id="type_school_add"
+						value="#{typeSchoolController.typeSchool.id}">
+						<f:selectItem itemLabel="Sélectionner un type" itemValue="" />
+						<f:selectItems
+							value="#{typeSchoolController.getListSelectItem(typeSchoolController.listTypeSchool)}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="Suface:" />
+					<p:inputText value="#{schoolController.addSchool.surface}" />
+					<p:outputLabel value="Nombre de classes:" />
+					<p:inputText value="#{schoolController.addSchool.numberRoom}" />
+					<p:commandButton update=":form:gridSchool" value="Créer"
+						title="View"
+						action="#{schoolController.createSchool(schoolController.addSchool)}"
+						oncomplete="PF('createSchoolDialog').hide()">
+					</p:commandButton>
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+	</h:form>
+</body>
+</html>
