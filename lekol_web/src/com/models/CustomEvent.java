@@ -1,4 +1,4 @@
-package com.controllers;
+package com.models;
 
 import java.util.Date;
 
@@ -7,6 +7,7 @@ import org.primefaces.model.DefaultScheduleEvent;
 import com.entities.Teacher;
 import com.entities.Class;
 
+@SuppressWarnings("serial")
 public class CustomEvent extends DefaultScheduleEvent{
 	private Teacher teacher;
 	private Class classe;
