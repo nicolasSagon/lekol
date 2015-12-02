@@ -22,13 +22,14 @@ public class Payment implements Serializable {
 
 	private String mode;
 
-	//bi-directional many-to-one association to Cheque
-	@OneToMany(mappedBy="payment")
-	private List<Cheque> cheques;
-
 	//bi-directional many-to-one association to Family
 	@OneToMany(mappedBy="payment")
 	private List<Family> families;
+
+	//bi-directional many-to-one association to Cheque
+	@ManyToOne
+	@JoinColumn(name="chequeId")
+	private Cheque cheque;
 
 	public Payment() {
 	}
@@ -57,28 +58,6 @@ public class Payment implements Serializable {
 		this.mode = mode;
 	}
 
-	public List<Cheque> getCheques() {
-		return this.cheques;
-	}
-
-	public void setCheques(List<Cheque> cheques) {
-		this.cheques = cheques;
-	}
-
-	public Cheque addCheque(Cheque cheque) {
-		getCheques().add(cheque);
-		cheque.setPayment(this);
-
-		return cheque;
-	}
-
-	public Cheque removeCheque(Cheque cheque) {
-		getCheques().remove(cheque);
-		cheque.setPayment(null);
-
-		return cheque;
-	}
-
 	public List<Family> getFamilies() {
 		return this.families;
 	}
@@ -99,6 +78,14 @@ public class Payment implements Serializable {
 		family.setPayment(null);
 
 		return family;
+	}
+
+	public Cheque getCheque() {
+		return this.cheque;
+	}
+
+	public void setCheque(Cheque cheque) {
+		this.cheque = cheque;
 	}
 
 }
