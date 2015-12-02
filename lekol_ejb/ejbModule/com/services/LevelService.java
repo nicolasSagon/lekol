@@ -36,12 +36,6 @@ public class LevelService implements LevelServiceLocal {
 	@Override
 	public List<Level> getListLevel() {
 		return em.createNamedQuery("Level.findAll").getResultList();
-		/*CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Level> cq = cb.createQuery(Level.class);
-        Root<Level> rootEntry = cq.from(Level.class);
-        CriteriaQuery<Level> all = cq.select(rootEntry);
-        TypedQuery<Level> allQuery = em.createQuery(all);
-        return allQuery.getResultList();*/
 	}
 	
 	@Override

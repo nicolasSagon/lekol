@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
@@ -21,8 +20,6 @@ public class TypeSchoolService implements TypeSchoolServiceLocal {
 
 	@PersistenceContext(name = "lekol_app")
 	private EntityManager em;
-	private EntityTransaction et;
-
 	/**
 	 * Default constructor.
 	 * 

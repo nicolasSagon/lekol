@@ -6,15 +6,13 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+
+//import sun.util.logging.resources.logging;
 
 import com.entities.Cycle;
 
 /**
- * Session Bean implementation class levelService
+ * Session Bean implementation class cycleService
  */
 @Stateless
 @LocalBean
@@ -33,31 +31,24 @@ public class CycleService implements CycleServiceLocal {
 	public void addCycle(Cycle cycle) {
 		em.persist(cycle);
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Cycle> getListCycle() {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Cycle> cq = cb.createQuery(Cycle.class);
-        Root<Cycle> rootEntry = cq.from(Cycle.class);
-        CriteriaQuery<Cycle> all = cq.select(rootEntry);
-        TypedQuery<Cycle> allQuery = em.createQuery(all);
-        return allQuery.getResultList();
-	}
-
-	@Override
-	public void deleteCycle(Cycle cycle) {
-		//em.remove(em.contains(cycle) ? cycle : em.merge(cycle));
-		Cycle cy = em.find(Cycle.class, cycle.getId());
-		em.merge(cy);
-		em.refresh(cy);
-		em.remove(cy);
+		return em.createNamedQuery("Cycle.findAll").getResultList();
 	}
 	
+	@Override
+	public Cycle getCycle(int id) {
+		Cycle cycle = em.find(Cycle.class, id);
+		return cycle;
+	}
 
 	@Override
-	public void updateCycle(Cycle cycle) {
-		em.merge(cycle);
-		
+	public void saveCycle(Cycle cycle) {
+		Cycle l = this.getCycle(cycle.getId());
+		l.setName(cycle.getName());
+		em.merge(l);	
 	}
 
 }

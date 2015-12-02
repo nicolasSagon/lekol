@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
 
-import com.entities.Cycle;
 import com.entities.Role;
 import com.services.RoleService;
 
