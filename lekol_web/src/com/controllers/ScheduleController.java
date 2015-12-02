@@ -13,6 +13,7 @@ import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
+import com.entities.Activity;
 import com.entities.Cycle;
 import com.entities.Level;
 import com.entities.Teacher;
@@ -22,6 +23,7 @@ import com.services.ActivityService;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
