@@ -19,7 +19,7 @@
 					<div id="bloc">Accueil</div>
 				</div>
 			</ui:insert>
-			<ui:fragment rendered="#{userModelBean.isConnected()}">
+			<ui:fragment rendered="#{userModelBean.notConnected}">
 				<div id="register" class="col-md-4">
 					<h:form id="formConnect" class="form-horizontal " rendered="true">
 						<div class="form-group">
@@ -49,13 +49,12 @@
 					</h:form>
 				</div>
 			</ui:fragment>
-			<ui:fragment rendered="#{userModelBean.isConnected()}">
+			<ui:fragment rendered="#{userModelBean.connected}">
 				<h:form class="inline-block pull-right">
 					<h:outputText>Welcome !!!!</h:outputText>
 					<br />
 					<p:outputLabel
-						style="color:white;text-shadow: 2px 2px 4px #000000;"
-						value="#{userModelBean.userConnected}  " />
+						value="#{userModelBean.userConnected.name}  " />
 					<h:commandButton value="Logout" class="btn btn-default"
 						action="#{userModelBean.logOut()}" />
 				</h:form>

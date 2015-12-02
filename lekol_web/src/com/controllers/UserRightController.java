@@ -1,5 +1,8 @@
 package com.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -11,7 +14,7 @@ import com.services.UserService;
 @SessionScoped
 public class UserRightController {
     
-	private User userConnected;
+	private User userConnected = new User();
 	@EJB
     private UserService service;
 	
@@ -24,18 +27,18 @@ public class UserRightController {
 	}
 
 	public boolean exists(User user){
-		int id =  service.signInUser(user);
-		if(id <= 0){
-			this.userConnected = null;
-			return false;
-		}else{
-			this.userConnected.setId(id);
+		List<User> users = new ArrayList<User>();
+		users = service.signInUser(user);
+		if(users.size() > 0){
+			this.userConnected = users.get(0);
 			return true;
+		}else{
+			return false;
 		}
 	}
 	
 	public void logOut(){
-		this.userConnected = null;
+		this.userConnected.setId(-1);
 	}
 	
 	public boolean isConnected(){
@@ -46,6 +49,14 @@ public class UserRightController {
 		}
 	}
     
+	public boolean isNotConnected(){
+		if(this.userConnected.getId() > 0){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
     public boolean isAdmin(){
     	int id = this.userConnected.getId();
     	if (id <= 0){

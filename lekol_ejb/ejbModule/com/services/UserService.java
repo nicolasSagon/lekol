@@ -59,14 +59,10 @@ public class UserService implements UserServiceLocal {
 		em.merge(user);
 	}
 	
-	public int signInUser(User user){
+	public List<User> signInUser(User user){
 		List<User> users = new ArrayList<User>();
-		users = em.createNativeQuery("SELECT * FROM USER WHERE mail =" + user.getMail()+ " AND password = "+ user.getPassword(),User.class).getResultList();
-		if (users.size() != 0) {
-			return users.get(0).getId(); 
-		}else{
-			return -1;
-		}
+		users = em.createNativeQuery("SELECT * FROM USER WHERE USER.mail ='" + user.getMail()+ "' AND USER.password = '"+ user.getPassword()+"'",User.class).getResultList();
+		return users;
 	}
 
 	public void deleteUser(int id) {

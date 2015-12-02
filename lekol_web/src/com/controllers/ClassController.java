@@ -79,7 +79,7 @@ public class ClassController {
 	
 	public SelectItem convertToSelectItem(Class classe) {
 		SelectItem item = new SelectItem();
-		item.setLabel(classe.getName());
+		//item.setLabel(classe.getName()); //TODO SACON DTC FDP RPZ  TMTC SWAGON :-)
 		item.setValue(classe.getId());
 		return item;
 	}
