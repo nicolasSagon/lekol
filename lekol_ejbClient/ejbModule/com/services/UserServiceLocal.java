@@ -17,4 +17,5 @@ public interface UserServiceLocal {
 
 	void saveUser(User user);
 	
+	void deleteUser(int id);
 }
