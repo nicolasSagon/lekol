@@ -7,8 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//import sun.util.logging.resources.logging;
-
 import com.entities.Activity;
 
 /**
@@ -28,8 +26,9 @@ public class ActivityService implements ActivityServiceLocal {
     }
 
 	@Override
-	public void addActivity(Activity activity) {
+	public int addActivity(Activity activity) {
 		em.persist(activity);
+		return activity.getId();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -38,11 +37,6 @@ public class ActivityService implements ActivityServiceLocal {
 		return em.createNamedQuery("Activity.findAll").getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Activity> getListActivityByClassId(int classId) {
-		return em.createNamedQuery("Activity.findAll").getResultList();
-	}
 	
 	@Override
 	public Activity getActivity(int id) {
@@ -60,6 +54,19 @@ public class ActivityService implements ActivityServiceLocal {
 		l.setStartDate(activity.getStartDate());
 		l.setTeacher(activity.getTeacher());
 		em.merge(l);	
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Activity> getAllActivities(int id){
+		return em.createNativeQuery("SELECT * from Activity Where classId = " + id, Activity.class).getResultList();
+	}
+	
+	@Override
+	public void deleteActivity(int id){
+		
+		Activity a = em.find(Activity.class, id);
+		em.remove(a);
 	}
 
 }

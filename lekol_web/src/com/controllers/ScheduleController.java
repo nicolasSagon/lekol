@@ -2,6 +2,7 @@ package com.controllers;
 
 import java.io.Serializable;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -9,21 +10,18 @@ import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
-import com.entities.Cycle;
-import com.entities.Level;
-import com.entities.Teacher;
+import com.entities.Activity;
 import com.entities.Class;
 import com.models.CustomEvent;
 import com.services.ActivityService;
+import com.services.ClassService;
 
-import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -34,16 +32,37 @@ import javax.faces.event.ActionEvent;
 public class ScheduleController implements Serializable{
 
 	private ScheduleModel eventModel;
-    
-    private ScheduleModel lazyEventModel;
+	@EJB
+	private ClassService classService;
  
     private CustomEvent event = new CustomEvent();
     
+    @EJB
     private ActivityService service;
     
-    public void chooseClass(int classId) {
-    	
-    	List<Activity> lstActivity = service.getListActivityByClassId(classId);
+    public int selectedClassId;
+    
+    public int getSelectedClassId() {
+		return selectedClassId;
+	}
+
+	public void setSelectedClassId(int selectedClassId) {
+		this.selectedClassId = selectedClassId;
+	}
+
+	public void setEventModel(ScheduleModel eventModel) {
+		this.eventModel = eventModel;
+	}
+
+	public void chooseClass(int classId) {
+
+        event = new CustomEvent();
+    	List<Activity> lstActivity = service.getAllActivities(classId);
+        eventModel = new DefaultScheduleModel();
+        for (Activity a : lstActivity)  {
+        	CustomEvent e = new CustomEvent(a.getName(), a.getStartDate(), a.getEndDate(), a.getTeacher(), a.getClazz(), a.getRoom(), a.getId());  
+        	eventModel.addEvent(e);
+        }
     	
     }
     
@@ -110,10 +129,6 @@ public class ScheduleController implements Serializable{
     public ScheduleModel getEventModel() {
         return eventModel;
     }
-     
-    public ScheduleModel getLazyEventModel() {
-        return lazyEventModel;
-    }
     
     public ScheduleEvent getEvent() {
         return event;
@@ -124,12 +139,26 @@ public class ScheduleController implements Serializable{
     }
      
     public void addEvent(ActionEvent actionEvent) {
-        if(event.getId() == null)
-            eventModel.addEvent(event);
-        else
+    	Activity a = newActivity(event);
+    	
+        if(event.getId() == null) {
+        	event.setActivityId(service.addActivity(a));
+            eventModel.addEvent(event);	
+        }
+        else {
+        	service.saveActivity(a);
             eventModel.updateEvent(event);
+        }
          
         event = new CustomEvent();
+    }
+    
+    public void deleteEvent(ActionEvent actionEvent){
+    	
+    	service.deleteActivity(event.getActivityId());
+    	eventModel.deleteEvent(event);
+    	event = new CustomEvent();
+    
     }
      
     public void onEventSelect(SelectEvent selectEvent) {
@@ -137,23 +166,28 @@ public class ScheduleController implements Serializable{
     }
      
     public void onDateSelect(SelectEvent selectEvent) {
-        event = new CustomEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject(), (Teacher) selectEvent.getObject(),(Class) selectEvent.getObject());
+    	Class classe = classService.getById(selectedClassId);
+        event = new CustomEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject(), classe.getTeacher() , classe, classe.getRoom(), 0);
     }
      
     public void onEventMove(ScheduleEntryMoveEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
-         
-        addMessage(message);
+    	service.saveActivity(newActivity((CustomEvent)event.getScheduleEvent()));
     }
      
     public void onEventResize(ScheduleEntryResizeEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
-         
-        addMessage(message);
+        service.saveActivity(newActivity((CustomEvent)event.getScheduleEvent()));
     }
-     
-    private void addMessage(FacesMessage message) {
-        FacesContext.getCurrentInstance().addMessage(null, message);
+    
+    private Activity newActivity(CustomEvent e){
+    	Activity a = new Activity();
+        a.setName(e.getTitle());
+    	a.setRoom(e.getRoom());
+    	a.setTeacher(e.getTeacher());
+    	a.setStartDate(e.getStartDate());
+    	a.setEndDate(e.getEndDate());
+    	a.setClazz(e.getClasse());
+    	a.setId(e.getActivityId());
+    	return a;
     }
 	
 }
