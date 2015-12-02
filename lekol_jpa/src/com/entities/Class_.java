@@ -9,6 +9,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Class.class)
 public class Class_ {
 	public static volatile SingularAttribute<Class, Integer> id;
+	public static volatile SingularAttribute<Class, String> name;
 	public static volatile ListAttribute<Class, Activity> activities;
 	public static volatile ListAttribute<Class, Child> childs;
 	public static volatile SingularAttribute<Class, Teacher> teacher;
