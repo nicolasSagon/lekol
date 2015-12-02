@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<title>Gestion des écoles</title>
+</h:head>
+<h:body>
+	<div class="container-fluid">
+		<div id="header" class="row">
+			<ui:insert name="title">
+				<div class="title col-md-1" style="background-color: yellow;">
+					<div id="bloc">Accueil</div>
+				</div>
+			</ui:insert>
+			 <ui:fragment rendered="true"><!--  #{userControlerBean.isNotConnected()}"> -->
+				<div id="becomeMember" class="col-md-2)">
+					<h:form class="margin-base-vertical">
+						<p class="text-center">
+							<h:commandButton type="submit" class="btn btn-success btn-lg"
+								action="inscription.jsf" value="Become a member" />
+						</p>
+					</h:form>
+				</div>
+				<div id="register" class="col-md-4">
+					<h:form id="formConnect" class="form-horizontal " rendered="true">
+						<div class="form-group">
+							<h:panelGrid columns="3" cellpadding="5">
+								<h:outputText style="color:black;text-shadow: 2px 2px 4px #888888;" value="Username" />
+								<!-- <p:inputText id="username" value="#{userModelBean.login}"
+									title="Entrer ici votre login" />-->
+								<p:tooltip id="toolTipFocus" for="username" showEvent="focus"
+									hideEvent="blur" />
+								  <h:outputText style="color:black;text-shadow: 2px 2px 4px #888888;" value="Password" />
+								<!--<p:inputText id="password" value="#{userModelBean.pwd}"
+									title="Entrer ici votre mot de passe" />-->
+								<p:tooltip id="toolTipFocus2" for="password" showEvent="focus"
+									hideEvent="blur" />
+							</h:panelGrid>
+						</div>
+						<div class="form-group">
+							<h:commandButton id="btnOK" value="OK" class="btn btn-default">
+								<!-- >action="#{userControlerBean.checkConnection(userModelBean)}">-->
+
+							</h:commandButton>
+						</div>
+					</h:form>
+				</div>
+			</ui:fragment>
+			<!-- <ui:fragment rendered="#{userControlerBean.isConnected()}">
+				<h:form  class="inline-block pull-right">
+					<h:outputText>Welcome !!!!</h:outputText>
+					<br />
+					<p:outputLabel style="color:white;text-shadow: 2px 2px 4px #000000;" value="#{userControlerBean.getUserConnected()}  " />
+					<h:commandButton value="Logout" class="btn btn-default"
+						action="#{userControlerBean.logout()}" />
+				</h:form>
+			</ui:fragment>-->
+		</div>
+	</div>
+	<div id="body" class="row">
+		<ui:insert name="body">
+
+		</ui:insert>
+	</div>
+	<div id="footer" class="row">
+		<div class="col-md-6" id="copyright">
+			<p>© Copyright P5</p>
+		</div>
+		<div class="col-md-4"><a href="index.html">
+		<img id="logo" src="css/logo.jpg" />
+		</a>
+			
+		</div>
+	</div>
+</h:body>
+</html>
