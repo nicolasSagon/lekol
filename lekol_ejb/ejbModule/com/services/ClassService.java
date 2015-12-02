@@ -46,5 +46,9 @@ public class ClassService implements ClassServiceLocal {
 		c.setName(classe.getName());
 		em.merge(c);	
 	}
+	@Override
+	public Class getById(int id){
+		return em.find(Class.class, id);
+	}
 
 }
