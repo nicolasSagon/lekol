@@ -47,16 +47,27 @@ public class UserRightController {
 	@EJB
     private UserService service;
     
-    public boolean isAdmin(int id){
-        boolean ret = false;
-        if(service.getUser(id).getRole().getName() == "Administrateur"){ret = true;}else{this.userConnected = null;}
-        return ret;
+    public boolean isAdmin(){
+    	int id = this.userConnected.getId();
+    	if (id <= 0){
+    		return false;
+    	}else{
+    		boolean ret = false;
+            if(service.getUser(id).getRole().getName() == "Administrateur"){ret = true;}else{this.userConnected = null;}
+            return ret;
+    	}
+        
     }
     
-    public boolean isTeacher(int id){
-        boolean ret = false;
-        if(service.getUser(id).getRole().getName() == "Professeur"){ret = true;}else{this.userConnected = null;}
-        return ret;
+    public boolean isTeacher(){
+    	int id = this.userConnected.getId();
+    	if (id <= 0){
+      		return false;
+    	}else{
+	        boolean ret = false;
+	        if(service.getUser(id).getRole().getName() == "Professeur"){ret = true;}else{this.userConnected = null;}
+	        return ret;
+        }
     }
 
 }

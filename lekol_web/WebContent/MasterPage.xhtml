@@ -68,7 +68,7 @@
 		</ui:insert>
 	</div>
 	<div id="footer" class="row">
-	<ui:fragment rendered="true">
+	<ui:fragment rendered="#{userModelBean.isAdmin()}">
 				<!-- userController.isAdmin() -->
 				<div class="col-md-4">
 					<a href="cycle.xhtml"> Cycle </a>
