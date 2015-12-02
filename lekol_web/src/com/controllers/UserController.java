@@ -13,6 +13,7 @@ import com.services.UserService;
 public class UserController {
 	private User addUser;
 	private User editUser;
+	private User deleteUser;
 
 	@EJB
 	private UserService service;
@@ -22,6 +23,8 @@ public class UserController {
 		this.addUser.setRole(new Role());
 		this.editUser = new User();
 		this.editUser.setRole(new Role());
+		this.deleteUser = new User();
+		this.deleteUser.setRole(new Role());
 	}
 
 	public User getAddUser() {
@@ -55,5 +58,15 @@ public class UserController {
 		this.editUser = editUser;
 	}
 
+	public void deleteUser(int id) {
+		service.deleteUser(id);
+	}
+	public User getDeleteUser() {
+		return deleteUser;
+	}
+
+	public void setDeleteUser(User deleteUser) {
+		this.deleteUser = deleteUser;
+	}
 	
 }

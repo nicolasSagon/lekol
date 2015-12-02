@@ -27,12 +27,17 @@
 			<p:column headerText="Role">
 				<h:outputText value="#{user.role.name}" />
 			</p:column>
-			
+
 			<p:column headerText="Options">
 				<p:commandButton update=":form:editUserPanel" value="Modifier"
 					oncomplete="PF('editUserDialog').show()">
 					<f:setPropertyActionListener value="#{user}"
 						target="#{userController.editUser}" />
+				</p:commandButton>
+				<p:commandButton update=":form:deleteUserPanel" value="Supprimer"
+					oncomplete="PF('deleteUserDialog').show()">
+					<f:setPropertyActionListener value="#{user}"
+						target="#{userController.deleteUser}" />
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
@@ -63,14 +68,33 @@
 			</p:outputPanel>
 		</p:dialog>
 
+		<p:dialog header="Supprimer un utilisateur"
+			widgetVar="deleteUserDialog" modal="true" showEffect="fade"
+			hideEffect="fade" resizable="false">
+			<p:outputPanel id="deleteUserPanel" style="text-align:center;">
+				<p:panelGrid columns="2" cellpadding="5"
+					rendered="#{not empty userController.deleteUser}">
+					<p:outputLabel
+						value="Etes-vous certain de vouloir supprimer l'utilisateur?" />
+					<h:inputHidden value="#{userController.deleteUser.id}" />
+					<p:commandButton update=":form:gridUser" value="Oui"
+						action="#{userController.deleteUser(userController.deleteUser.id)}"
+						oncomplete="PF('deleteUserDialog').hide()" />
+					<p:commandButton value="Non"
+						oncomplete="PF('deleteUserDialog').hide()" />
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+
 		<p:dialog header="Créer un Utilisateur" widgetVar="createUserDialog"
 			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 			<p:outputPanel id="createUserPanel" style="text-align:center;">
 				<p:panelGrid columns="2" cellpadding="5">
 					<p:outputLabel value="Nom" />
 					<p:inputText value="#{userController.addUser.name}"></p:inputText>
-					<p:outputLabel for="role" value="Role " />
-					<p:selectOneMenu id="role" value="#{userController.addUser.role.id}">
+					<p:outputLabel for="user" value="User" />
+					<p:selectOneMenu id="user"
+						value="#{userController.addUser.role.id}">
 						<f:selectItem itemLabel="Sélectionner un role" itemValue="" />
 						<f:selectItems
 							value="#{roleController.convertToListSelectItem(roleController.listRole)}" />

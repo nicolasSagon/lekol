@@ -1,5 +1,6 @@
 package com.services;
 
+import java.io.Console;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 //import sun.util.logging.resources.logging;
+
 
 import com.entities.Role;
 
@@ -20,12 +22,13 @@ public class RoleService implements RoleServiceLocal {
 
 	@PersistenceContext(name = "lekol_app")
 	private EntityManager em;
-    /**
-     * Default constructor. 
-     */
-    public RoleService() {
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * Default constructor.
+	 */
+	public RoleService() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void addRole(Role role) {
@@ -36,14 +39,15 @@ public class RoleService implements RoleServiceLocal {
 	@Override
 	public List<Role> getListRole() {
 		return em.createNamedQuery("Role.findAll").getResultList();
-		/*CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Role> cq = cb.createQuery(Role.class);
-        Root<Role> rootEntry = cq.from(Role.class);
-        CriteriaQuery<Role> all = cq.select(rootEntry);
-        TypedQuery<Role> allQuery = em.createQuery(all);
-        return allQuery.getResultList();*/
+		/*
+		 * CriteriaBuilder cb = em.getCriteriaBuilder(); CriteriaQuery<Role> cq
+		 * = cb.createQuery(Role.class); Root<Role> rootEntry =
+		 * cq.from(Role.class); CriteriaQuery<Role> all = cq.select(rootEntry);
+		 * TypedQuery<Role> allQuery = em.createQuery(all); return
+		 * allQuery.getResultList();
+		 */
 	}
-	
+
 	@Override
 	public Role getRole(int id) {
 		Role role = em.find(Role.class, id);
@@ -52,7 +56,15 @@ public class RoleService implements RoleServiceLocal {
 
 	@Override
 	public void saveRole(Role role) {
-			em.merge(role);	
+		em.merge(role);
+	}
+
+	public void deleteRole(int id) {
+		System.out.println("-----------------------------");
+		System.out.println("ID : " + id);
+		System.out.println("-----------------------------");
+		Role role = em.find(Role.class, id);
+		em.remove(role);
 	}
 
 }

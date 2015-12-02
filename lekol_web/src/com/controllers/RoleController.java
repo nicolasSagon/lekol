@@ -17,6 +17,7 @@ public class RoleController {
 
 	private Role addRole;
 	private Role editRole;
+	private Role deleteRole;
 
 	@EJB
 	private RoleService service;
@@ -24,6 +25,7 @@ public class RoleController {
 	public RoleController() {
 		this.addRole = new Role();
 		this.editRole = new Role();
+		this.deleteRole = new Role();
 	}
 
 	public Role getAddRole() {
@@ -53,6 +55,17 @@ public class RoleController {
 
 	public void setEditRole(Role editRole) {
 		this.editRole = editRole;
+	}
+	
+	public void deleteRole(int id) {
+		service.deleteRole(id);
+	}
+	public Role getDeleteRole() {
+		return deleteRole;
+	}
+
+	public void setDeleteRole(Role deleteRole) {
+		this.deleteRole = deleteRole;
 	}
 	
 
