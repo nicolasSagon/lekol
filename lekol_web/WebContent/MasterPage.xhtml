@@ -19,7 +19,8 @@
 					<div id="bloc">Accueil</div>
 				</div>
 			</ui:insert>
-			 <ui:fragment rendered="true"><!--  #{userControlerBean.isNotConnected()}"> -->
+			<ui:fragment rendered="true">
+				<!--  #{userControlerBean.isNotConnected()}"> -->
 				<div id="becomeMember" class="col-md-2)">
 					<h:form class="margin-base-vertical">
 						<p class="text-center">
@@ -32,14 +33,20 @@
 					<h:form id="formConnect" class="form-horizontal " rendered="true">
 						<div class="form-group">
 							<h:panelGrid columns="3" cellpadding="5">
-								<h:outputText style="color:black;text-shadow: 2px 2px 4px #888888;" value="Username" />
-								<!-- <p:inputText id="username" value="#{userModelBean.login}"
-									title="Entrer ici votre login" />-->
+								<h:outputText
+									style="color:black;text-shadow: 2px 2px 4px #888888;"
+									value="Username" />
+								<p:inputText id="username"
+									value="#{userController.editUser.name}"
+									title="Entrer ici votre login" />
 								<p:tooltip id="toolTipFocus" for="username" showEvent="focus"
 									hideEvent="blur" />
-								  <h:outputText style="color:black;text-shadow: 2px 2px 4px #888888;" value="Password" />
-								<!--<p:inputText id="password" value="#{userModelBean.pwd}"
-									title="Entrer ici votre mot de passe" />-->
+								<h:outputText
+									style="color:black;text-shadow: 2px 2px 4px #888888;"
+									value="Password" />
+								<p:inputText id="password"
+									value="#{userController.editUser.name}"
+									title="Entrer ici votre mot de passe" />
 								<p:tooltip id="toolTipFocus2" for="password" showEvent="focus"
 									hideEvent="blur" />
 							</h:panelGrid>
@@ -53,19 +60,37 @@
 					</h:form>
 				</div>
 			</ui:fragment>
-			<!-- <ui:fragment rendered="#{userControlerBean.isConnected()}">
-				<h:form  class="inline-block pull-right">
+			<ui:fragment rendered="true">
+				<!-- userController.isConnected() -->
+				<h:form class="inline-block pull-right">
 					<h:outputText>Welcome !!!!</h:outputText>
 					<br />
-					<p:outputLabel style="color:white;text-shadow: 2px 2px 4px #000000;" value="#{userControlerBean.getUserConnected()}  " />
+					<p:outputLabel
+						style="color:white;text-shadow: 2px 2px 4px #000000;"
+						value="#{userControlerBean.getUserConnected()}  " />
 					<h:commandButton value="Logout" class="btn btn-default"
 						action="#{userControlerBean.logout()}" />
 				</h:form>
-			</ui:fragment>-->
+			</ui:fragment>
 		</div>
 	</div>
 	<div id="body" class="row">
 		<ui:insert name="body">
+			<ui:fragment rendered="true">
+				<!-- userController.isAdmin() -->
+				<div class="col-md-4">
+					<a href="home.xhtml"> Room </a>
+				</div>
+				<div class="col-md-4">
+					<a href="level.xhtml"> Level </a>
+				</div>
+				<div class="col-md-4">
+					<a href="planning.xhtml"> Planning </a>
+				</div>
+			</ui:fragment>
+			<div class="col-md-4">
+				<a href="Teacher.xhtml"> Teacher </a>
+			</div>
 
 		</ui:insert>
 	</div>
@@ -73,10 +98,9 @@
 		<div class="col-md-6" id="copyright">
 			<p>© Copyright P5</p>
 		</div>
-		<div class="col-md-4"><a href="index.html">
-		<img id="logo" src="css/logo.jpg" />
-		</a>
-			
+		<div class="col-md-4">
+			<a href="MasterPage.xhtml"> </a>
+
 		</div>
 	</div>
 </h:body>

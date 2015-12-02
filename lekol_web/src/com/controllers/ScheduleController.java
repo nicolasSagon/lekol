@@ -43,7 +43,7 @@ public class ScheduleController implements Serializable{
     
     public void chooseClass(int classId) {
     	
-    	List<Activity> lstActivity = service.getListActivityByClassId(classId);
+    	//List<Activity> lstActivity = service.getListActivityByClassId(classId);
     	
     }
     
