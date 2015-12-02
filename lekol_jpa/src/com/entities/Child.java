@@ -15,7 +15,7 @@ public class Child implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@Temporal(TemporalType.DATE)
@@ -27,15 +27,15 @@ public class Child implements Serializable {
 
 	private String lastName;
 
-	//bi-directional many-to-one association to School
-	@ManyToOne
-	@JoinColumn(name="schoolId")
-	private School school;
-
 	//bi-directional many-to-one association to Class
 	@ManyToOne
 	@JoinColumn(name="classId")
 	private Class clazz;
+
+	//bi-directional many-to-one association to School
+	@ManyToOne
+	@JoinColumn(name="schoolId")
+	private School school;
 
 	public Child() {
 	}
@@ -80,20 +80,20 @@ public class Child implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public School getSchool() {
-		return this.school;
-	}
-
-	public void setSchool(School school) {
-		this.school = school;
-	}
-
 	public Class getClazz() {
 		return this.clazz;
 	}
 
 	public void setClazz(Class clazz) {
 		this.clazz = clazz;
+	}
+
+	public School getSchool() {
+		return this.school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
 	}
 
 }

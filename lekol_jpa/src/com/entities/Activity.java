@@ -2,7 +2,6 @@ package com.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 
 
 /**
@@ -15,16 +14,10 @@ public class Activity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date endDate;
-
 	private String name;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date startDate;
 
 	//bi-directional many-to-one association to Class
 	@ManyToOne
@@ -52,28 +45,12 @@ public class Activity implements Serializable {
 		this.id = id;
 	}
 
-	public Date getEndDate() {
-		return this.endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Date getStartDate() {
-		return this.startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
 	}
 
 	public Class getClazz() {
