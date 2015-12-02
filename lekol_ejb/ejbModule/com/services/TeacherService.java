@@ -10,7 +10,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
 import com.entities.Teacher;
 
 /**
@@ -45,27 +44,11 @@ public class TeacherService implements TeacherServiceLocal {
 	}
 
 	@Override
-	public void deleteTeacher(Teacher teacher) {
-		//em.getTransaction().begin();
-		//em.refresh(teacher);
-		Teacher tea = em.find(Teacher.class, teacher.getId());
-		em.merge(tea);
-		em.refresh(tea);
-		em.remove(tea);
-		//em.getTransaction().commit();
-	}
-
-	@Override
-	public void updateTeacher(Teacher teacher) {
-		em.remove(em.contains(teacher) ? teacher : em.merge(teacher));
+	public void editTeacher(Teacher teacher) {
+		Teacher l = em.find(Teacher.class, teacher.getId());
+		l.setFirstName(teacher.getFirstName());
+		l.setLastName(teacher.getLastName());
+		em.merge(l);	
 	}
 
 }
-
-
-
-/*
- * 
- * em.getTransaction().begin();
-  em.remove(employee);
-  em.getTransaction().commit();*/

@@ -11,6 +11,5 @@ public interface TeacherServiceLocal {
 
 	public void addTeacher(Teacher teacher);
 	public List<Teacher> getListTeacher();
-	public void deleteTeacher(Teacher teacher);
-	public void updateTeacher(Teacher teacher);
+	public void editTeacher(Teacher teacher);
 }

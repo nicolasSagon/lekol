@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+<meta charset="UTF-8"></meta>
+<title>Gestion des professeurs</title>
+</h:head>
+<body>
+	<h1>Gestion des professeurs</h1>
+	<h:form id="form">
+	
+		<p:dataTable id="gridTeacher" var="teach" value="#{teacherController.listTeacher}" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="10,20,50" rows="10">
+			<p:column headerText="Id">
+				<h:outputText value="#{teach.id}" />
+			</p:column>
+	
+			<p:column headerText="Prénom">
+				<h:outputText value="#{teach.firstName}" />
+			</p:column>
+			
+			<p:column headerText="Nom">
+				<h:outputText value="#{teach.lastName}" />
+			</p:column>
+			
+			<p:column headerText="Options">
+				<p:commandButton update=":form:editTeacherPanel" value="Modifier"
+					oncomplete="PF('editTeacherDialog').show()">
+					<f:setPropertyActionListener value="#{teach}"
+						target="#{teacherController.editTeacher}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		
+		<p:commandButton update=":form:createTeacherPanel" value="Ajouter un nouveau professeur"
+			oncomplete="PF('createTeacherDialog').show()">
+		</p:commandButton>
+
+		<p:dialog header="Modifier un professeur" widgetVar="editTeacherDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="editTeacherPanel" style="text-align:center;">
+				<p:panelGrid columns="2" cellpadding="5"
+					rendered="#{not empty teacherController.editTeacher}">
+					<p:outputLabel value="Prénom:" />
+					<p:inputText value="#{teacherController.editTeacher.firstName}" />
+					<p:outputLabel value="Nom:" />
+					<p:inputText value="#{teacherController.editTeacher.lastName}" />
+					<h:inputHidden value="#{teacherController.editTeacher.id}" />
+					<p:commandButton update=":form:gridTeacher" value="Modifier"
+						action="#{teacherController.editTeacher(teacherController.editTeacher)}"
+						oncomplete="PF('editTeacherDialog').hide()">
+					</p:commandButton>
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+
+		<p:dialog header="Ajouter un professeur" widgetVar="createTeacherDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="createTeacherPanel" style="text-align:center;">
+				<p:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel value="Prénom:" />
+					<p:inputText value="#{teacherController.addTeacher.firstName}"></p:inputText>
+					<p:outputLabel value="Nom:" />
+					<p:inputText value="#{teacherController.addTeacher.lastName}"></p:inputText>
+					<p:commandButton update=":form:gridTeacher" value="Créer"
+						title="View"
+						action="#{teacherController.createTeacher(teacherController.addTeacher)}"
+						oncomplete="PF('createTeacherDialog').hide()">
+					</p:commandButton>
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+		
+		
+	
+	</h:form>
+</body>
+</html>

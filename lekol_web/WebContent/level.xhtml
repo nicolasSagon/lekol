@@ -19,7 +19,7 @@
 			<p:column headerText="Id">
 				<h:outputText value="#{level.id}" />
 			</p:column>
-			<p:column headerText="Name">
+			<p:column headerText="Libellé">
 				<h:outputText value="#{level.name}" />
 			</p:column>
 			<p:column headerText="Cycle">
@@ -43,15 +43,14 @@
 			<p:outputPanel id="editLevelPanel" style="text-align:center;">
 				<p:panelGrid columns="2" cellpadding="5"
 					rendered="#{not empty levelController.editLevel}">
-					<p:outputLabel value="Id:" />
-					<p:outputLabel value="#{levelController.editLevel.id}" />
-					<p:outputLabel value="Name:" />
+					<p:outputLabel value="Nom:" />
 					<p:inputText value="#{levelController.editLevel.name}" />
-					<p:outputLabel value="Cycle " />
+					<p:outputLabel value="Cycle:" />
 					<p:selectOneMenu value="#{levelController.editLevel.cycle.id}">
 						<f:selectItems
 							value="#{cycleController.convertToListSelectItem(cycleController.listCycle)}" />
 					</p:selectOneMenu>
+					<h:inputHidden value="#{levelController.editLevel.id}" />
 					<p:commandButton update=":form:gridLevel" value="Modifier"
 						action="#{levelController.editLevel(levelController.editLevel)}"
 						oncomplete="PF('editLevelDialog').hide()">
@@ -64,9 +63,9 @@
 			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 			<p:outputPanel id="createLevelPanel" style="text-align:center;">
 				<p:panelGrid columns="2" cellpadding="5">
-					<p:outputLabel value="Nom" />
+					<p:outputLabel value="Nom:" />
 					<p:inputText value="#{levelController.addLevel.name}"></p:inputText>
-					<p:outputLabel for="cycle" value="Cycle " />
+					<p:outputLabel for="cycle" value="Cycle:" />
 					<p:selectOneMenu id="cycle"
 						value="#{levelController.addLevel.cycle.id}">
 						<f:selectItem itemLabel="Sélectionner un cycle" itemValue="" />

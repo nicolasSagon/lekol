@@ -50,6 +50,7 @@ public class LevelController {
 		this.editLevel = new Level();
 		this.editLevel.setCycle(new Cycle());
 	}
+	
 	public Level getEditLevel() {
 		return editLevel;
 	}

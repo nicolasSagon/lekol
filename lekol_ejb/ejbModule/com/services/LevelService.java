@@ -52,7 +52,10 @@ public class LevelService implements LevelServiceLocal {
 
 	@Override
 	public void saveLevel(Level level) {
-			em.merge(level);	
+		Level l = this.getLevel(level.getId());
+		l.setCycle(level.getCycle());
+		l.setName(level.getName());
+		em.merge(l);	
 	}
 
 }
