@@ -1,6 +1,8 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -17,6 +19,12 @@ public class Activity implements Serializable {
 	private int id;
 
 	private String name;
+	
+	@Temporal(TemporalType.DATE)
+	private Date startDate;
+	
+	@Temporal(TemporalType.DATE)
+	private Date endDate;
 
 	//bi-directional many-to-one association to Room
 	@ManyToOne
@@ -74,6 +82,22 @@ public class Activity implements Serializable {
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+	
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	
+	public Date getEndDate() {
+		return this.endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 }

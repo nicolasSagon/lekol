@@ -19,6 +19,9 @@
 			<p:column headerText="Id">
 				<h:outputText value="#{class.id}" />
 			</p:column>
+			<p:column headerText="Nom">
+				<h:outputText value="#{class.name}" />
+			</p:column>
 			<p:column headerText="Professeur (prénom)">
 				<h:outputText value="#{class.teacher.firstName} #{class.teacher.lastName}" />
 			</p:column>
@@ -49,6 +52,8 @@
 			<p:outputPanel id="editClassPanel" style="text-align:center;">
 				<p:panelGrid columns="2" cellpadding="5"
 					rendered="#{not empty classController.editClass}">
+					<p:outputLabel value="Nom:" />
+					<p:inputText value="#{classController.editClass.name}" />
 					<p:outputLabel value="Professeur:" />
 					<p:selectOneMenu value="#{classController.editClass.teacher.id}">
 						<f:selectItems
@@ -82,6 +87,8 @@
 			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 			<p:outputPanel id="createClassPanel" style="text-align:center;">
 				<p:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel value="Nom:" />
+					<p:inputText value="#{classController.addClass.name}" />
 					<p:outputLabel value="Niveau:" />
 					<p:selectOneMenu
 						value="#{classController.addClass.level.id}">

@@ -16,6 +16,8 @@ public class Class implements Serializable {
 
 	@Id
 	private int id;
+	
+	private String name;
 
 	//bi-directional many-to-one association to Activity
 	@OneToMany(mappedBy="clazz")
@@ -44,6 +46,7 @@ public class Class implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="schoolId")
 	private School school;
+	
 
 	public Class() {
 	}
@@ -130,6 +133,14 @@ public class Class implements Serializable {
 
 	public void setSchool(School school) {
 		this.school = school;
+	}
+	
+	public String getName(){
+		return this.name;
+	}
+	
+	public void setName(String name){
+		this.name = name;
 	}
 
 }

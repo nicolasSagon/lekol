@@ -28,10 +28,16 @@
 					<f:setPropertyActionListener value="#{role}"
 						target="#{roleController.editRole}" />
 				</p:commandButton>
+				<p:commandButton update=":form:deleteRolePanel" value="Supprimer"
+					oncomplete="PF('deleteRoleDialog').show()">
+					<f:setPropertyActionListener value="#{role}"
+						target="#{roleController.deleteRole}" />
+				</p:commandButton>
 			</p:column>
 		</p:dataTable>
-		
-		<p:commandButton update=":form:createRolePanel" value="Créer un nouveau role"
+
+		<p:commandButton update=":form:createRolePanel"
+			value="Créer un nouveau role"
 			oncomplete="PF('createRoleDialog').show()">
 		</p:commandButton>
 
@@ -51,14 +57,29 @@
 			</p:outputPanel>
 		</p:dialog>
 
+		<p:dialog header="Supprimer un role" widgetVar="deleteRoleDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="deleteRolePanel" style="text-align:center;">
+				<p:panelGrid columns="2" cellpadding="5"
+					rendered="#{not empty roleController.deleteRole}">
+					<p:outputLabel
+						value="Etes-vous certain de vouloir supprimer le role?" />
+					<h:inputHidden value="#{roleController.deleteRole.id}" />
+					<p:commandButton update=":form:gridRole" value="Oui"
+						action="#{roleController.deleteRole(roleController.deleteRole.id)}"
+						oncomplete="PF('deleteRoleDialog').hide()"/>
+					<p:commandButton value="Non" oncomplete="PF('deleteRoleDialog').hide()"/>
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:dialog>
+
 		<p:dialog header="Créer un role" widgetVar="createRoleDialog"
 			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 			<p:outputPanel id="createRolePanel" style="text-align:center;">
 				<p:panelGrid columns="2" cellpadding="5">
 					<p:outputLabel value="Nom" />
 					<p:inputText value="#{roleController.addRole.name}"></p:inputText>
-					<p:commandButton update=":form:gridRole" value="Créer"
-						title="View"
+					<p:commandButton update=":form:gridRole" value="Créer" title="View"
 						action="#{roleController.createRole(roleController.addRole)}"
 						oncomplete="PF('createRoleDialog').hide()">
 					</p:commandButton>

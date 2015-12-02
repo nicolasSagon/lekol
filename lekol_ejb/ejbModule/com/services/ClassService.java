@@ -43,6 +43,7 @@ public class ClassService implements ClassServiceLocal {
 		c.setRoom(classe.getRoom());
 		c.setSchool(classe.getSchool());
 		c.setTeacher(classe.getTeacher());
+		c.setName(classe.getName());
 		em.merge(c);	
 	}
 
