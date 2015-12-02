@@ -35,15 +35,19 @@
 		<p:dialog widgetVar="eventDialog" header="Event Details"
 			showEffect="clip" hideEffect="clip">
 			<h:panelGrid id="eventDetails" columns="2">
-				<p:outputLabel for="salle" value="Salle:" />
-				<p:inputText id="salle"
-					value="#{scheduleController.event.classe.level.name}"
-					required="true" />
-				<p:outputLabel for="prof" value="Prof:" />
+				<p:outputLabel for="salle" value="Salle :" />
+				<h:selectOneMenu id="salle"
+					value="#{scheduleController.event.classe.room}">
+					<f:selectItems value="#{roomController.listRoom}"
+						var="_room" itemValue="#{_room}"
+						itemLabel="#{_room.name}" />
+				</h:selectOneMenu>
+				<p:outputLabel for="prof" value="Prof :" />
 				<h:selectOneMenu id="prof"
-					value="#{tscheduleController.event.teacher}">
-					<f:selectItems value="#{teacherController.listTeacher}" var="_teacher"
-						itemValue="#{_teacher.firstName}" itemLabel="#{_teacher.lastName}" />
+					value="#{scheduleController.event.teacher}">	
+					<f:selectItems value="#{teacherController.listTeacher}"
+						var="_teacher" itemValue="#{_teacher}"
+						itemLabel="#{_teacher.lastName}" />
 				</h:selectOneMenu>
 				<p:outputLabel for="title" value="Titles:" />
 				<p:inputText id="title" value="#{scheduleController.event.title}"
