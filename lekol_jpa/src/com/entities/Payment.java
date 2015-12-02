@@ -2,6 +2,7 @@ package com.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -14,7 +15,7 @@ public class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	private int frequency;
@@ -22,9 +23,12 @@ public class Payment implements Serializable {
 	private String mode;
 
 	//bi-directional many-to-one association to Cheque
-	@ManyToOne
-	@JoinColumn(name="chequeId")
-	private Cheque cheque;
+	@OneToMany(mappedBy="payment")
+	private List<Cheque> cheques;
+
+	//bi-directional many-to-one association to Family
+	@OneToMany(mappedBy="payment")
+	private List<Family> families;
 
 	public Payment() {
 	}
@@ -53,12 +57,48 @@ public class Payment implements Serializable {
 		this.mode = mode;
 	}
 
-	public Cheque getCheque() {
-		return this.cheque;
+	public List<Cheque> getCheques() {
+		return this.cheques;
 	}
 
-	public void setCheque(Cheque cheque) {
-		this.cheque = cheque;
+	public void setCheques(List<Cheque> cheques) {
+		this.cheques = cheques;
+	}
+
+	public Cheque addCheque(Cheque cheque) {
+		getCheques().add(cheque);
+		cheque.setPayment(this);
+
+		return cheque;
+	}
+
+	public Cheque removeCheque(Cheque cheque) {
+		getCheques().remove(cheque);
+		cheque.setPayment(null);
+
+		return cheque;
+	}
+
+	public List<Family> getFamilies() {
+		return this.families;
+	}
+
+	public void setFamilies(List<Family> families) {
+		this.families = families;
+	}
+
+	public Family addFamily(Family family) {
+		getFamilies().add(family);
+		family.setPayment(this);
+
+		return family;
+	}
+
+	public Family removeFamily(Family family) {
+		getFamilies().remove(family);
+		family.setPayment(null);
+
+		return family;
 	}
 
 }

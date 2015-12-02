@@ -1,9 +1,8 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -16,25 +15,26 @@ public class Activity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private String name;
-	
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
-	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
 
-	//bi-directional many-to-one association to Room
-	@ManyToOne
-	@JoinColumn(name="roomId")
-	private Room room;
+	private String name;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date startDate;
 
 	//bi-directional many-to-one association to Class
 	@ManyToOne
 	@JoinColumn(name="classId")
 	private Class clazz;
+
+	//bi-directional many-to-one association to Room
+	@ManyToOne
+	@JoinColumn(name="roomId")
+	private Room room;
 
 	//bi-directional many-to-one association to Teacher
 	@ManyToOne
@@ -52,6 +52,14 @@ public class Activity implements Serializable {
 		this.id = id;
 	}
 
+	public Date getEndDate() {
+		return this.endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
 	public String getName() {
 		return this.name;
 	}
@@ -60,12 +68,12 @@ public class Activity implements Serializable {
 		this.name = name;
 	}
 
-	public Room getRoom() {
-		return this.room;
+	public Date getStartDate() {
+		return this.startDate;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 	public Class getClazz() {
@@ -76,28 +84,20 @@ public class Activity implements Serializable {
 		this.clazz = clazz;
 	}
 
+	public Room getRoom() {
+		return this.room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
 	public Teacher getTeacher() {
 		return this.teacher;
 	}
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
-	}
-	
-	public Date getStartDate() {
-		return this.startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	
-	public Date getEndDate() {
-		return this.endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
 	}
 
 }

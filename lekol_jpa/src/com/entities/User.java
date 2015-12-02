@@ -14,13 +14,13 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	private String name;
 
 	//bi-directional many-to-one association to Role
 	@ManyToOne
-	@OneToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="roleId")
 	private Role role;
 

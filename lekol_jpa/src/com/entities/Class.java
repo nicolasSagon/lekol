@@ -15,8 +15,9 @@ public class Class implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
+
 	private String name;
 
 	//bi-directional many-to-one association to Activity
@@ -27,26 +28,25 @@ public class Class implements Serializable {
 	@OneToMany(mappedBy="clazz")
 	private List<Child> childs;
 
-	//bi-directional many-to-one association to Teacher
+	//bi-directional many-to-one association to Level
 	@ManyToOne
-	@JoinColumn(name="teacherId")
-	private Teacher teacher;
+	@JoinColumn(name="levelId")
+	private Level level;
 
 	//bi-directional many-to-one association to Room
 	@ManyToOne
 	@JoinColumn(name="roomId")
 	private Room room;
 
-	//bi-directional many-to-one association to Level
-	@ManyToOne
-	@JoinColumn(name="levelId")
-	private Level level;
-
 	//bi-directional many-to-one association to School
 	@ManyToOne
 	@JoinColumn(name="schoolId")
 	private School school;
-	
+
+	//bi-directional many-to-one association to Teacher
+	@ManyToOne
+	@JoinColumn(name="teacherId")
+	private Teacher teacher;
 
 	public Class() {
 	}
@@ -57,6 +57,14 @@ public class Class implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Activity> getActivities() {
@@ -103,12 +111,12 @@ public class Class implements Serializable {
 		return child;
 	}
 
-	public Teacher getTeacher() {
-		return this.teacher;
+	public Level getLevel() {
+		return this.level;
 	}
 
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	public Room getRoom() {
@@ -119,14 +127,6 @@ public class Class implements Serializable {
 		this.room = room;
 	}
 
-	public Level getLevel() {
-		return this.level;
-	}
-
-	public void setLevel(Level level) {
-		this.level = level;
-	}
-
 	public School getSchool() {
 		return this.school;
 	}
@@ -134,13 +134,13 @@ public class Class implements Serializable {
 	public void setSchool(School school) {
 		this.school = school;
 	}
-	
-	public String getName(){
-		return this.name;
+
+	public Teacher getTeacher() {
+		return this.teacher;
 	}
-	
-	public void setName(String name){
-		this.name = name;
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
 
 }
