@@ -1,5 +1,6 @@
 package com.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -56,6 +57,16 @@ public class UserService implements UserServiceLocal {
 	@Override
 	public void saveUser(User user) {
 		em.merge(user);
+	}
+	
+	public int signInUser(User user){
+		List<User> users = new ArrayList<User>();
+		users = em.createNativeQuery("SELECT * FROM USER WHERE mail =" + user.getMail()+ " AND password = "+ user.getPassword(),User.class).getResultList();
+		if (users.size() != 0) {
+			return users.get(0).getId(); 
+		}else{
+			return -1;
+		}
 	}
 
 	public void deleteUser(int id) {
