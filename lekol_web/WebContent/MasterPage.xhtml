@@ -19,7 +19,7 @@
 					<div id="bloc">Accueil</div>
 				</div>
 			</ui:insert>
-			<ui:fragment rendered="true">
+			<ui:fragment rendered="#{userModelBean.isConnected()}">
 				<div id="register" class="col-md-4">
 					<h:form id="formConnect" class="form-horizontal " rendered="true">
 						<div class="form-group">
@@ -49,8 +49,7 @@
 					</h:form>
 				</div>
 			</ui:fragment>
-			<ui:fragment rendered="true">
-				<!-- userController.isConnected() -->
+			<ui:fragment rendered="#{userModelBean.isConnected()}">
 				<h:form class="inline-block pull-right">
 					<h:outputText>Welcome !!!!</h:outputText>
 					<br />

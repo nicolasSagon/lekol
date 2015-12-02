@@ -12,6 +12,8 @@ import com.services.UserService;
 public class UserRightController {
     
 	private User userConnected;
+	@EJB
+    private UserService service;
 	
     public User getUserConnected() {
 		return userConnected;
@@ -19,14 +21,6 @@ public class UserRightController {
 
 	public void setUserConnected(User userConnected) {
 		this.userConnected = userConnected;
-	}
-
-	public UserService getService() {
-		return service;
-	}
-
-	public void setService(UserService service) {
-		this.service = service;
 	}
 
 	public boolean exists(User user){
@@ -44,8 +38,13 @@ public class UserRightController {
 		this.userConnected = null;
 	}
 	
-	@EJB
-    private UserService service;
+	public boolean isConnected(){
+		if(this.userConnected.getId() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
     
     public boolean isAdmin(){
     	int id = this.userConnected.getId();
