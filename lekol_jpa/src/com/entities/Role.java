@@ -22,8 +22,7 @@ public class Role implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="role")
-	@OneToOne(cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy="role", cascade=CascadeType.REMOVE)
 	private List<User> users;
 
 	public Role() {

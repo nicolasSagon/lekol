@@ -19,8 +19,7 @@ public class User implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Role
-	@ManyToOne
-	@OneToOne(cascade=CascadeType.REMOVE)
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="roleId")
 	private Role role;
 
