@@ -10,7 +10,10 @@ import com.entities.Cycle;
 public interface CycleServiceLocal {
 
 	public void addCycle(Cycle cycle);
+
 	public List<Cycle> getListCycle();
-	public void deleteCycle(Cycle cycle);
-	public void updateCycle(Cycle cycle);
+	
+	public Cycle getCycle(int id);
+	
+	public void saveCycle(Cycle cycle);
 }

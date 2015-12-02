@@ -49,6 +49,8 @@ public class ClassController {
 	}
 
 	public void createClass(Class classe) {
+		//classe.setActivities(new ArrayList<Activity>());
+		//classe.setChilds(new ArrayList<Child>());
 		service.addClass(classe);
 		this.addClass = new Class();
 		this.addClass.setLevel(new Level());

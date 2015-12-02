@@ -1,43 +1,61 @@
 package com.controllers;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
 
 import com.entities.Cycle;
 import com.services.CycleService;
 
+@RequestScoped
 @ManagedBean
 public class CycleController {
 
-	private Cycle cycle = new Cycle();
+	private Cycle addCycle;
+	private Cycle editCycle;
 
 	@EJB
 	private CycleService service;
 	
-	public Cycle getCycle() {
-		return cycle;
+	public CycleController() {
+		this.addCycle = new Cycle();
+		this.editCycle = new Cycle();
 	}
 
-	public void setCycle(Cycle cycle) {
-		this.cycle = cycle;
+	public Cycle getAddCycle() {
+		return addCycle;
+	}
+
+	public void setAddCycle(Cycle addCycle) {
+		this.addCycle = addCycle;
 	}
 
 	public List<Cycle> getListCycle() {
 		return service.getListCycle();
 	}
-	
-	public void saveCycle(Cycle cycle) {
+
+	public void createCycle(Cycle cycle) {
 		service.addCycle(cycle);
+		this.addCycle = new Cycle();
+	}
+
+	public void editCycle(Cycle cycle) {
+		service.saveCycle(cycle);
+		this.editCycle = new Cycle();
 	}
 	
-	public void deleteCycle(Cycle cycle){
-		service.deleteCycle(cycle);
+	public Cycle getEditCycle() {
+		return editCycle;
 	}
+
+	public void setEditCycle(Cycle editCycle) {
+		this.editCycle = editCycle;
+	}
+	
 	public SelectItem convertToSelectItem(Cycle cycle) {
 		SelectItem item = new SelectItem();
 		item.setLabel(cycle.getName());
@@ -51,5 +69,5 @@ public class CycleController {
 			list.add(convertToSelectItem(cycle));
 		return list;
 	}
-	
+
 }

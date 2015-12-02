@@ -1,9 +1,12 @@
 package com.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.model.SelectItem;
+
 import com.entities.Teacher;
 import com.services.TeacherService;
 
@@ -51,5 +54,20 @@ public class TeacherController {
 	public void setEditTeacher(Teacher editTeacher) {
 		this.editTeacher = editTeacher;
 	}
+	
+	public SelectItem convertToSelectItem(Teacher teacher) {
+		SelectItem item = new SelectItem();
+		item.setLabel(teacher.getFirstName() + " " + teacher.getLastName());
+		item.setValue(teacher.getId());
+		return item;
+	}
+	
+	public List<SelectItem> convertToListSelectItem(List<Teacher> lstTeacher) {
+		List<SelectItem> list = new ArrayList<SelectItem>();
+		for(Teacher teacher : lstTeacher)
+			list.add(convertToSelectItem(teacher));
+		return list;
+	}
+	
 	
 }

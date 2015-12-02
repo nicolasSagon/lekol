@@ -55,9 +55,4 @@ public class TypeSchoolController {
 		}
 		return listSelectItems;
 	}
-	
-	public TypeSchool getTypeById(int id) {
-		typeSchool = service.getTypeById(id);
-		return typeSchool;
-	}
 }

@@ -28,6 +28,7 @@ public class PaymentService implements PaymentServiceLocal{
 	}
 	
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Payment> getListPayment() {
 		/*CriteriaBuilder cb = em.getCriteriaBuilder();

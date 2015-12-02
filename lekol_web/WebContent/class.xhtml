@@ -20,7 +20,7 @@
 				<h:outputText value="#{class.id}" />
 			</p:column>
 			<p:column headerText="Professeur (prénom)">
-				<h:outputText value="#{class.teacher.firstName}" />
+				<h:outputText value="#{class.teacher.firstName} #{class.teacher.lastName}" />
 			</p:column>
 			<p:column headerText="Salle">
 				<h:outputText value="#{class.room.name}" />
@@ -82,38 +82,33 @@
 			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 			<p:outputPanel id="createClassPanel" style="text-align:center;">
 				<p:panelGrid columns="2" cellpadding="5">
-					<p:outputLabel for="cycle" value="Cycle:" />
-					<p:selectOneMenu id="cycle"
-						value="#{levelController.addLevel.cycle.id}">
-						<f:selectItem itemLabel="Sélectionner un cycle" itemValue="" />
+					<p:outputLabel value="Niveau:" />
+					<p:selectOneMenu
+						value="#{classController.addClass.level.id}">
 						<f:selectItems
-							value="#{cycleController.convertToListSelectItem(cycleController.listCycle)}" />
+							value="#{levelController.convertToListSelectItem(levelController.listLevel)}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="Professeur:" />
-					<p:selectOneMenu value="#{classController.editClass.teacher.id}">
+					<p:selectOneMenu value="#{classController.addClass.teacher.id}">
 						<f:selectItem itemLabel="Sélectionner un professeur par défaut" itemValue="" />
 						<f:selectItems
 							value="#{teacherController.convertToListSelectItem(teacherController.listTeacher)}" />
 					</p:selectOneMenu>
-					<p:outputLabel value="Salle" />
-					<p:selectOneMenu value="#{classController.editClass.room.id}">
+					<p:outputLabel value="Salle par défaut" />
+					<p:selectOneMenu value="#{classController.addClass.room.id}">
+						<f:selectItem itemLabel="Sélectionner un niveau" itemValue="" />
 						<f:selectItems
 							value="#{roomController.convertToListSelectItem(roomController.listRoom)}" />
 					</p:selectOneMenu>
-					<p:outputLabel value="Niveau" />
-					<p:selectOneMenu value="#{classController.editClass.level.id}">
-						<f:selectItems
-							value="#{levelController.convertToListSelectItem(levelController.listLevel)}" />
-					</p:selectOneMenu>
 					<p:outputLabel value="Ecole" />
-					<p:selectOneMenu value="#{classController.editClass.school.id}">
+					<p:selectOneMenu value="#{classController.addClass.school.id}">
 						<f:selectItems
 							value="#{schoolController.convertToListSelectItem(schoolController.listSchool)}" />
 					</p:selectOneMenu>
-					<p:commandButton update=":form:gridLevel" value="Créer"
+					<p:commandButton update=":form:gridClass" value="Créer"
 						title="View"
-						action="#{levelController.createLevel(levelController.addLevel)}"
-						oncomplete="PF('createLevelDialog').hide()">
+						action="#{classController.createClass(classController.addClass)}"
+						oncomplete="PF('createClassDialog').hide()">
 					</p:commandButton>
 				</p:panelGrid>
 			</p:outputPanel>
