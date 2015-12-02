@@ -10,10 +10,21 @@
 	<title>Planning</title>
 </h:head>
 <body>
-	<h:form>
+	<h:form id="form">
+	
+		<p:outputLabel value="Classe:" />
+		<p:selectOneMenu value="#{scheduleController.selectedClassId}">
+			<f:selectItems
+				value="#{classController.convertToListSelectItem(classController.listClass)}" />
+		</p:selectOneMenu>
+		<p:commandButton update=":form:schedulePanel" value="Afficher"
+			title="View"
+			action="#{scheduleController.chooseClass(scheduleController.selectedClassId)}">
+		</p:commandButton>
+		
 		<p:growl id="messages" showDetail="true" />
 
-		<h:panelGrid columnClasses="value">
+		<h:panelGrid id="schedulePanel" columnClasses="value">
 			<h3 style="margin-top: 0">Editable Schedule</h3>
 			<p:schedule id="schedule" value="#{scheduleController.eventModel}"
 				widgetVar="myschedule" timeZone="GMT+2">
@@ -35,68 +46,38 @@
 		<p:dialog widgetVar="eventDialog" header="Event Details"
 			showEffect="clip" hideEffect="clip">
 			<h:panelGrid id="eventDetails" columns="2">
+				<p:outputLabel for="title" value="Titres:" />
+				<p:inputText id="title" value="#{scheduleController.event.title}" />
 				<p:outputLabel for="salle" value="Salle :" />
-				<h:selectOneMenu id="salle"
-					value="#{scheduleController.event.classe.room}">
-					<f:selectItems value="#{roomController.listRoom}"
-						var="_room" itemValue="#{_room}"
-						itemLabel="#{_room.name}" />
-				</h:selectOneMenu>
-				<p:outputLabel for="prof" value="Prof :" />
-				<h:selectOneMenu id="prof"
-					value="#{scheduleController.event.teacher}">	
-					<f:selectItems value="#{teacherController.listTeacher}"
-						var="_teacher" itemValue="#{_teacher}"
-						itemLabel="#{_teacher.lastName}" />
-				</h:selectOneMenu>
-				<p:outputLabel for="title" value="Titles:" />
-				<p:inputText id="title" value="#{scheduleController.event.title}"
-					required="true" />
+				<p:selectOneMenu id="salle" value="#{scheduleController.event.room.id}">
+					<f:selectItems
+						value="#{roomController.convertToListSelectItem(roomController.listRoom)}" />
+				</p:selectOneMenu>
+				<p:outputLabel for="prof" value="Professeur :" />
+				<p:selectOneMenu id="prof" value="#{scheduleController.event.teacher.id}">
+					<f:selectItems value="#{teacherController.convertToListSelectItem(teacherController.listTeacher)}" />
+				</p:selectOneMenu>
+				
 
-				<p:outputLabel for="from" value="From:" />
+				<p:outputLabel for="from" value="Date de début :" />
 				<p:calendar id="from" value="#{scheduleController.event.startDate}"
 					timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm" />
 
-				<p:outputLabel for="to" value="To:" />
+				<p:outputLabel for="to" value="Date de fin :" />
 				<p:calendar id="to" value="#{scheduleController.event.endDate}"
 					timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm" />
 
-				<p:outputLabel for="allDay" value="All Day:" />
-				<h:selectBooleanCheckbox id="allDay"
-					value="#{scheduleController.event.allDay}" />
-
-				<p:commandButton type="reset" value="Reset" />
-				<p:commandButton id="addButton" value="Save"
+				<p:commandButton id="addButton" value="OK"
 					actionListener="#{scheduleController.addEvent}"
 					oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+					
+				<p:commandButton id="deleteButton" value="Delete"
+					actionListener="#{scheduleController.deleteEvent}"
+					oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />	
 			</h:panelGrid>
 		</p:dialog>
 	</h:form>
 
-	<script type="text/javascript">
-	    PrimeFaces.locales['tr'] = {
-	        closeText: 'kapat',
-	        prevText: 'geri',
-	        nextText: 'ileri',
-	        currentText: 'bugün',
-	        monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran',
-	            'Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],
-	        monthNamesShort: ['Oca','Şub','Mar','Nis','May','Haz',
-	            'Tem','Ağu','Eyl','Eki','Kas','Ara'],
-	        dayNames: ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'],
-	        dayNamesShort: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
-	        dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
-	        weekHeader: 'Hf',
-	        firstDay: 1,
-	        isRTL: false,
-	        showMonthAfterYear: false,
-	        yearSuffix: '',
-	        month: 'Ay',
-	        week: 'Hafta',
-	        day: 'Gün',
-	        allDayText : 'Tüm Gün'
-	    };
-	</script>
 	<style type="text/css">
 		.value {
 			width: 1000px;

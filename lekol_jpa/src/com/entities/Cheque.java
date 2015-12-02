@@ -3,6 +3,7 @@ package com.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -15,7 +16,7 @@ public class Cheque implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private int amount;
@@ -30,9 +31,8 @@ public class Cheque implements Serializable {
 	private String tutorName;
 
 	//bi-directional many-to-one association to Payment
-	@ManyToOne
-	@JoinColumn(name="paymentId")
-	private Payment payment;
+	@OneToMany(mappedBy="cheque")
+	private List<Payment> payments;
 
 	public Cheque() {
 	}
@@ -85,12 +85,26 @@ public class Cheque implements Serializable {
 		this.tutorName = tutorName;
 	}
 
-	public Payment getPayment() {
-		return this.payment;
+	public List<Payment> getPayments() {
+		return this.payments;
 	}
 
-	public void setPayment(Payment payment) {
-		this.payment = payment;
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
+	}
+
+	public Payment addPayment(Payment payment) {
+		getPayments().add(payment);
+		payment.setCheque(this);
+
+		return payment;
+	}
+
+	public Payment removePayment(Payment payment) {
+		getPayments().remove(payment);
+		payment.setCheque(null);
+
+		return payment;
 	}
 
 }
