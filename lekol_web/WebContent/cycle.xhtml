@@ -12,6 +12,7 @@
 	</ui:define>
 
 	<ui:define name="body">
+	<ui:fragment rendered="#{userModelBean.admin}">
 		<h:form id="form">
 			<h1>Liste des Cycles :</h1>
 
@@ -67,6 +68,7 @@
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>
+		</ui:fragment>
 	</ui:define>
 
 </ui:composition>

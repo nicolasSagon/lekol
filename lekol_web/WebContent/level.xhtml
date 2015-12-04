@@ -2,87 +2,92 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	template="/MasterPage.xhtml">
+	xmlns:h="http://xmlns.jcp.org/jsf/html" template="/MasterPage.xhtml">
 
 
 	<ui:define name="title">
 		<meta charset="UTF-8"></meta>
-	<title>Gestion des niveaux</title>
+		<title>Gestion des niveaux</title>
 	</ui:define>
 
 	<ui:define name="body">
-		<h1>Gestion des niveaux</h1>
-	<h:form id="form">
-		<p:dataTable id="gridLevel" var="level"
-			value="#{levelController.listLevel}" paginator="true"
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="10,20,50" rows="10">
-			<p:column headerText="Id">
-				<h:outputText value="#{level.id}" />
-			</p:column>
-			<p:column headerText="Libellé">
-				<h:outputText value="#{level.name}" />
-			</p:column>
-			<p:column headerText="Cycle">
-				<h:outputText value="#{level.cycle.name}" />
-			</p:column>
-			<p:column headerText="Options">
-				<p:commandButton update=":form:editLevelPanel" value="Modifier"
-					oncomplete="PF('editLevelDialog').show()">
-					<f:setPropertyActionListener value="#{level}"
-						target="#{levelController.editLevel}" />
+		<ui:fragment rendered="#{userModelBean.admin}">
+			<h1>Gestion des niveaux</h1>
+			<h:form id="form">
+				<p:dataTable id="gridLevel" var="level"
+					value="#{levelController.listLevel}" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,50" rows="10">
+					<p:column headerText="Id">
+						<h:outputText value="#{level.id}" />
+					</p:column>
+					<p:column headerText="Libellé">
+						<h:outputText value="#{level.name}" />
+					</p:column>
+					<p:column headerText="Cycle">
+						<h:outputText value="#{level.cycle.name}" />
+					</p:column>
+					<p:column headerText="Options">
+						<p:commandButton update=":form:editLevelPanel" value="Modifier"
+							oncomplete="PF('editLevelDialog').show()">
+							<f:setPropertyActionListener value="#{level}"
+								target="#{levelController.editLevel}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:commandButton update=":form:createLevelPanel"
+					value="Créer un nouveau niveau"
+					oncomplete="PF('createLevelDialog').show()">
 				</p:commandButton>
-			</p:column>
-		</p:dataTable>
-		
-		<p:commandButton update=":form:createLevelPanel" value="Créer un nouveau niveau"
-			oncomplete="PF('createLevelDialog').show()">
-		</p:commandButton>
 
-		<p:dialog header="Modifier un niveau" widgetVar="editLevelDialog"
-			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-			<p:outputPanel id="editLevelPanel" style="text-align:center;">
-				<p:panelGrid columns="2" cellpadding="5"
-					rendered="#{not empty levelController.editLevel}">
-					<p:outputLabel value="Nom:" />
-					<p:inputText value="#{levelController.editLevel.name}" />
-					<p:outputLabel value="Cycle:" />
-					<p:selectOneMenu value="#{levelController.editLevel.cycle.id}">
-						<f:selectItems
-							value="#{cycleController.convertToListSelectItem(cycleController.listCycle)}" />
-					</p:selectOneMenu>
-					<h:inputHidden value="#{levelController.editLevel.id}" />
-					<p:commandButton update=":form:gridLevel" value="Modifier"
-						action="#{levelController.editLevel(levelController.editLevel)}"
-						oncomplete="PF('editLevelDialog').hide()">
-					</p:commandButton>
-				</p:panelGrid>
-			</p:outputPanel>
-		</p:dialog>
+				<p:dialog header="Modifier un niveau" widgetVar="editLevelDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="editLevelPanel" style="text-align:center;">
+						<p:panelGrid columns="2" cellpadding="5"
+							rendered="#{not empty levelController.editLevel}">
+							<p:outputLabel value="Nom:" />
+							<p:inputText value="#{levelController.editLevel.name}" />
+							<p:outputLabel value="Cycle:" />
+							<p:selectOneMenu value="#{levelController.editLevel.cycle.id}">
+								<f:selectItems
+									value="#{cycleController.convertToListSelectItem(cycleController.listCycle)}" />
+							</p:selectOneMenu>
+							<h:inputHidden value="#{levelController.editLevel.id}" />
+							<p:commandButton update=":form:gridLevel" value="Modifier"
+								action="#{levelController.editLevel(levelController.editLevel)}"
+								oncomplete="PF('editLevelDialog').hide()">
+							</p:commandButton>
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
 
-		<p:dialog header="Créer un niveau" widgetVar="createLevelDialog"
-			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-			<p:outputPanel id="createLevelPanel" style="text-align:center;">
-				<p:panelGrid columns="2" cellpadding="5">
-					<p:outputLabel value="Nom:" />
-					<p:inputText value="#{levelController.addLevel.name}"></p:inputText>
-					<p:outputLabel for="cycle" value="Cycle:" />
-					<p:selectOneMenu id="cycle"
-						value="#{levelController.addLevel.cycle.id}">
-						<f:selectItem itemLabel="Sélectionner un cycle" itemValue="" />
-						<f:selectItems
-							value="#{cycleController.convertToListSelectItem(cycleController.listCycle)}" />
-					</p:selectOneMenu>
-					<p:commandButton update=":form:gridLevel" value="Créer"
-						title="View"
-						action="#{levelController.createLevel(levelController.addLevel)}"
-						oncomplete="PF('createLevelDialog').hide()">
-					</p:commandButton>
-				</p:panelGrid>
-			</p:outputPanel>
-		</p:dialog>
-	</h:form>
+				<p:dialog header="Créer un niveau" widgetVar="createLevelDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="createLevelPanel" style="text-align:center;">
+						<p:panelGrid columns="2" cellpadding="5">
+							<p:outputLabel value="Nom:" />
+							<p:inputText value="#{levelController.addLevel.name}"></p:inputText>
+							<p:outputLabel for="cycle" value="Cycle:" />
+							<p:selectOneMenu id="cycle"
+								value="#{levelController.addLevel.cycle.id}">
+								<f:selectItem itemLabel="Sélectionner un cycle" itemValue="" />
+								<f:selectItems
+									value="#{cycleController.convertToListSelectItem(cycleController.listCycle)}" />
+							</p:selectOneMenu>
+							<p:commandButton update=":form:gridLevel" value="Créer"
+								title="View"
+								action="#{levelController.createLevel(levelController.addLevel)}"
+								oncomplete="PF('createLevelDialog').hide()">
+							</p:commandButton>
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
+		</ui:fragment>
+		<ui:fragment rendered="#{!userModelBean.admin}">
+			<h1>Accès refusé.</h1>
+		</ui:fragment>
 	</ui:define>
 
 </ui:composition>

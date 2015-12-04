@@ -19,7 +19,7 @@
 					<div id="bloc">Accueil</div>
 				</div>
 			</ui:insert>
-			<ui:fragment rendered="#{userModelBean.notConnected}">
+			<ui:fragment rendered="#{!userModelBean.connected}">
 				<div id="register" class="col-md-4">
 					<h:form id="formConnect" class="form-horizontal " rendered="true">
 						<div class="form-group">
@@ -43,7 +43,8 @@
 							</h:panelGrid>
 						</div>
 						<div class="form-group">
-							<h:commandButton id="btnOK" value="OK" class="btn btn-default" action="#{userModelBean.exists(userModelBean.userConnected)}">
+							<h:commandButton id="btnOK" value="OK" class="btn btn-default"
+								action="#{userModelBean.exists(userModelBean.userConnected)}">
 							</h:commandButton>
 						</div>
 					</h:form>
@@ -53,35 +54,57 @@
 				<h:form class="inline-block pull-right">
 					<h:outputText>Welcome !!!!</h:outputText>
 					<br />
-					<p:outputLabel
-						value="#{userModelBean.userConnected.name}  " />
+					<p:outputLabel value="#{userModelBean.getCurrentUser().name}  " />
 					<h:commandButton value="Logout" class="btn btn-default"
 						action="#{userModelBean.logOut()}" />
 				</h:form>
 			</ui:fragment>
 		</div>
 	</div>
-	<div id="body" class="row">
-		<ui:insert name="body">
-		</ui:insert>
-	</div>
+	<ui:fragment rendered="#{userModelBean.connected}">
+		<div id="body" class="row">
+			<ui:insert name="body">
+
+			</ui:insert>
+		</div>
+	</ui:fragment>
 	<div id="footer" class="row">
-	<ui:fragment rendered="#{userModelBean.isAdmin()}">
-				<!-- userController.isAdmin() -->
-				<div class="col-md-4">
-					<a href="cycle.xhtml"> Cycle </a>
-				</div>
-				<div class="col-md-4">
-					<a href="level.xhtml"> Level </a>
-				</div>
-				<div class="col-md-4">
-					<a href="planning.xhtml"> Planning </a>
-				</div>
-			</ui:fragment>
+		<ui:fragment rendered="#{userModelBean.isAdmin()}">
+			<!-- userController.isAdmin() -->
+			<div class="col-md-4">
+				<a href="cycle.xhtml"> Cycle </a>
+			</div>
+			<div class="col-md-4">
+				<a href="level.xhtml"> Level </a>
+			</div>
+			<div class="col-md-4">
+				<a href="planning.xhtml"> Planning </a>
+			</div>
 			<div class="col-md-4">
 				<a href="teacher.xhtml"> Teacher </a>
 			</div>
-	
+			<div class="col-md-4">
+				<a href="class.xhtml"> Classe </a>
+			</div>
+			<div class="col-md-4">
+				<a href="room.xhtml"> Room </a>
+			</div>
+			<div class="col-md-4">
+				<a href="school.xhtml"> School </a>
+			</div>
+			<div class="col-md-4">
+				<a href="type_school.xhtml"> Type School</a>
+			</div>
+			<div class="col-md-4">
+				<a href="user.xhtml"> User</a>
+			</div>
+		</ui:fragment>
+		<ui:fragment rendered="#{userModelBean.isTeacher()}">
+			<div class="col-md-4">
+				<a href="planning.xhtml"> Planning</a>
+			</div>
+		</ui:fragment>
+
 		<div class="col-md-6" id="copyright">
 			<p>© Copyright P5</p>
 		</div>

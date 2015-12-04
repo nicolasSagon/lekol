@@ -45,6 +45,8 @@ public class Class implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="teacherId")
 	private Teacher teacher;
+	
+	private String name;
 
 	public Class() {
 	}
@@ -132,5 +134,15 @@ public class Class implements Serializable {
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 
 }

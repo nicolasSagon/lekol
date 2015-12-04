@@ -2,17 +2,17 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	template="/MasterPage.xhtml">
+	xmlns:h="http://xmlns.jcp.org/jsf/html" template="/MasterPage.xhtml">
 
 
 	<ui:define name="title">
 		<meta charset="UTF-8"></meta>
-	<title>Gestion des salles</title>
+		<title>Gestion des salles</title>
 	</ui:define>
 
 	<ui:define name="body">
-	<h1>Gestion des salles</h1>
+		<ui:fragment rendered="#{userModelBean.admin}">
+			<h1>Gestion des salles</h1>
 	<h:form id="form">
 		<p:dataTable id="gridRoom" var="room"
 			value="#{roomController.listRoom}" paginator="true"
@@ -69,6 +69,10 @@
 			</p:outputPanel>
 		</p:dialog>
 	</h:form>
+		</ui:fragment>
+		<ui:fragment rendered="#{!userModelBean.admin}">
+			<h1>Accès refusé.</h1>
+		</ui:fragment>
 	</ui:define>
 
 </ui:composition>

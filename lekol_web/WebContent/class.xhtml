@@ -1,125 +1,134 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+<ui:composition xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
-<h:head>
-	<meta charset="UTF-8"></meta>
-	<title>Gestion des classes</title>
-</h:head>
-<body>
-	<h1>Gestion des classes</h1>
-	<h:form id="form">
-		<p:dataTable id="gridClass" var="class"
-			value="#{classController.listClass}" paginator="true"
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="10,20,50" rows="10">
-			<p:column headerText="Id">
-				<h:outputText value="#{class.id}" />
-			</p:column>
-			<p:column headerText="Nom">
-				<h:outputText value="#{class.name}" />
-			</p:column>
-			<p:column headerText="Professeur (prénom)">
-				<h:outputText value="#{class.teacher.firstName} #{class.teacher.lastName}" />
-			</p:column>
-			<p:column headerText="Salle">
-				<h:outputText value="#{class.room.name}" />
-			</p:column>
-			<p:column headerText="Niveau">
-				<h:outputText value="#{class.level.name}" />
-			</p:column>
-			<p:column headerText="Ecole">
-				<h:outputText value="#{class.school.name}" />
-			</p:column>
-			<p:column headerText="Options">
-				<p:commandButton update=":form:editClassPanel" value="Modifier"
-					oncomplete="PF('editClassDialog').show()">
-					<f:setPropertyActionListener value="#{class}"
-						target="#{classController.editClass}" />
-				</p:commandButton>
-			</p:column>
-		</p:dataTable>
-		
-		<p:commandButton update=":form:createClassPanel" value="Créer une nouvelle classe"
-			oncomplete="PF('createClassDialog').show()">
-		</p:commandButton>
+	xmlns:h="http://xmlns.jcp.org/jsf/html" template="/MasterPage.xhtml">
 
-		<p:dialog header="Modifier une classe" widgetVar="editClassDialog"
-			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-			<p:outputPanel id="editClassPanel" style="text-align:center;">
-				<p:panelGrid columns="2" cellpadding="5"
-					rendered="#{not empty classController.editClass}">
-					<p:outputLabel value="Nom:" />
-					<p:inputText value="#{classController.editClass.name}" />
-					<p:outputLabel value="Professeur:" />
-					<p:selectOneMenu value="#{classController.editClass.teacher.id}">
-						<f:selectItems
-							value="#{teacherController.convertToListSelectItem(teacherController.listTeacher)}" />
-					</p:selectOneMenu>
-					<p:outputLabel value="Salle" />
-					<p:selectOneMenu value="#{classController.editClass.room.id}">
-						<f:selectItems
-							value="#{roomController.convertToListSelectItem(roomController.listRoom)}" />
-					</p:selectOneMenu>
-					<p:outputLabel value="Niveau" />
-					<p:selectOneMenu value="#{classController.editClass.level.id}">
-						<f:selectItems
-							value="#{levelController.convertToListSelectItem(levelController.listLevel)}" />
-					</p:selectOneMenu>
-					<p:outputLabel value="Ecole" />
-					<p:selectOneMenu value="#{classController.editClass.school.id}">
-						<f:selectItems
-							value="#{schoolController.convertToListSelectItem(schoolController.listSchool)}" />
-					</p:selectOneMenu>
-					<h:inputHidden value="#{classController.editClass.id}" />
-					<p:commandButton update=":form:gridClass" value="Modifier"
-						action="#{classController.editClass(classController.editClass)}"
-						oncomplete="PF('editClassDialog').hide()">
-					</p:commandButton>
-				</p:panelGrid>
-			</p:outputPanel>
-		</p:dialog>
 
-		<p:dialog header="Créer une classe" widgetVar="createClassDialog"
-			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-			<p:outputPanel id="createClassPanel" style="text-align:center;">
-				<p:panelGrid columns="2" cellpadding="5">
-					<p:outputLabel value="Nom:" />
-					<p:inputText value="#{classController.addClass.name}" />
-					<p:outputLabel value="Niveau:" />
-					<p:selectOneMenu
-						value="#{classController.addClass.level.id}">
-						<f:selectItems
-							value="#{levelController.convertToListSelectItem(levelController.listLevel)}" />
-					</p:selectOneMenu>
-					<p:outputLabel value="Professeur:" />
-					<p:selectOneMenu value="#{classController.addClass.teacher.id}">
-						<f:selectItem itemLabel="Sélectionner un professeur par défaut" itemValue="" />
-						<f:selectItems
-							value="#{teacherController.convertToListSelectItem(teacherController.listTeacher)}" />
-					</p:selectOneMenu>
-					<p:outputLabel value="Salle par défaut" />
-					<p:selectOneMenu value="#{classController.addClass.room.id}">
-						<f:selectItem itemLabel="Sélectionner un niveau" itemValue="" />
-						<f:selectItems
-							value="#{roomController.convertToListSelectItem(roomController.listRoom)}" />
-					</p:selectOneMenu>
-					<p:outputLabel value="Ecole" />
-					<p:selectOneMenu value="#{classController.addClass.school.id}">
-						<f:selectItems
-							value="#{schoolController.convertToListSelectItem(schoolController.listSchool)}" />
-					</p:selectOneMenu>
-					<p:commandButton update=":form:gridClass" value="Créer"
-						title="View"
-						action="#{classController.createClass(classController.addClass)}"
-						oncomplete="PF('createClassDialog').hide()">
+	<ui:define name="title">
+		<meta charset="UTF-8"></meta>
+		<title>Gestion des classes</title>
+	</ui:define>
+
+	<ui:define name="body">
+		<ui:fragment rendered="#{userModelBean.admin}">
+			<h1>Gestion des classes</h1>
+		<h:form id="form">
+			<p:dataTable id="gridClass" var="class"
+				value="#{classController.listClass}" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,20,50" rows="10">
+				<p:column headerText="Id">
+					<h:outputText value="#{class.id}" />
+				</p:column>
+				<p:column headerText="Nom">
+					<h:outputText value="#{class.name}" />
+				</p:column>
+				<p:column headerText="Professeur (prénom)">
+					<h:outputText
+						value="#{class.teacher.firstName} #{class.teacher.lastName}" />
+				</p:column>
+				<p:column headerText="Salle">
+					<h:outputText value="#{class.room.name}" />
+				</p:column>
+				<p:column headerText="Niveau">
+					<h:outputText value="#{class.level.name}" />
+				</p:column>
+				<p:column headerText="Ecole">
+					<h:outputText value="#{class.school.name}" />
+				</p:column>
+				<p:column headerText="Options">
+					<p:commandButton update=":form:editClassPanel" value="Modifier"
+						oncomplete="PF('editClassDialog').show()">
+						<f:setPropertyActionListener value="#{class}"
+							target="#{classController.editClass}" />
 					</p:commandButton>
-				</p:panelGrid>
-			</p:outputPanel>
-		</p:dialog>
-	</h:form>
-</body>
-</html>
+				</p:column>
+			</p:dataTable>
+
+			<p:commandButton update=":form:createClassPanel"
+				value="Créer une nouvelle classe"
+				oncomplete="PF('createClassDialog').show()">
+			</p:commandButton>
+
+			<p:dialog header="Modifier une classe" widgetVar="editClassDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="editClassPanel" style="text-align:center;">
+					<p:panelGrid columns="2" cellpadding="5"
+						rendered="#{not empty classController.editClass}">
+						<p:outputLabel value="Nom:" />
+						<p:inputText value="#{classController.editClass.name}" />
+						<p:outputLabel value="Professeur:" />
+						<p:selectOneMenu value="#{classController.editClass.teacher.id}">
+							<f:selectItems
+								value="#{teacherController.convertToListSelectItem(teacherController.listTeacher)}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Salle" />
+						<p:selectOneMenu value="#{classController.editClass.room.id}">
+							<f:selectItems
+								value="#{roomController.convertToListSelectItem(roomController.listRoom)}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Niveau" />
+						<p:selectOneMenu value="#{classController.editClass.level.id}">
+							<f:selectItems
+								value="#{levelController.convertToListSelectItem(levelController.listLevel)}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Ecole" />
+						<p:selectOneMenu value="#{classController.editClass.school.id}">
+							<f:selectItems
+								value="#{schoolController.convertToListSelectItem(schoolController.listSchool)}" />
+						</p:selectOneMenu>
+						<h:inputHidden value="#{classController.editClass.id}" />
+						<p:commandButton update=":form:gridClass" value="Modifier"
+							action="#{classController.editClass(classController.editClass)}"
+							oncomplete="PF('editClassDialog').hide()">
+						</p:commandButton>
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:dialog header="Créer une classe" widgetVar="createClassDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="createClassPanel" style="text-align:center;">
+					<p:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel value="Nom:" />
+						<p:inputText value="#{classController.addClass.name}" />
+						<p:outputLabel value="Niveau:" />
+						<p:selectOneMenu value="#{classController.addClass.level.id}">
+							<f:selectItems
+								value="#{levelController.convertToListSelectItem(levelController.listLevel)}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Professeur:" />
+						<p:selectOneMenu value="#{classController.addClass.teacher.id}">
+							<f:selectItem itemLabel="Sélectionner un professeur par défaut"
+								itemValue="" />
+							<f:selectItems
+								value="#{teacherController.convertToListSelectItem(teacherController.listTeacher)}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Salle par défaut" />
+						<p:selectOneMenu value="#{classController.addClass.room.id}">
+							<f:selectItem itemLabel="Sélectionner un niveau" itemValue="" />
+							<f:selectItems
+								value="#{roomController.convertToListSelectItem(roomController.listRoom)}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Ecole" />
+						<p:selectOneMenu value="#{classController.addClass.school.id}">
+							<f:selectItems
+								value="#{schoolController.convertToListSelectItem(schoolController.listSchool)}" />
+						</p:selectOneMenu>
+						<p:commandButton update=":form:gridClass" value="Créer"
+							title="View"
+							action="#{classController.createClass(classController.addClass)}"
+							oncomplete="PF('createClassDialog').hide()">
+						</p:commandButton>
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+		</ui:fragment>
+		<ui:fragment rendered="#{!userModelBean.admin}">
+			<h1>Accès refusé.</h1>
+		</ui:fragment>
+	</ui:define>
+
+</ui:composition>

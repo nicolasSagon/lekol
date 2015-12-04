@@ -1,111 +1,120 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+<ui:composition xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
-<h:head>
-	<meta charset="UTF-8"></meta>
-	<title>Utilisateurs</title>
-</h:head>
-<body>
-	<h1>Gestion des utilisateurs</h1>
-	<h:form id="form">
-		<p:dataTable id="gridUser" var="user"
-			value="#{userController.getListUser()}" paginator="true"
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="10,20,50" rows="10">
-			<p:column headerText="Id">
-				<h:outputText value="#{user.id}" />
-			</p:column>
+	xmlns:h="http://xmlns.jcp.org/jsf/html" template="/MasterPage.xhtml">
 
-			<p:column headerText="Nom de l'utilisateur">
-				<h:outputText value="#{user.name}" />
-			</p:column>
 
-			<p:column headerText="Role">
-				<h:outputText value="#{user.role.name}" />
-			</p:column>
+	<ui:define name="title">
+		<meta charset="UTF-8"></meta>
+		<title>Gestion des utilisateurs</title>
+	</ui:define>
 
-			<p:column headerText="Options">
-				<p:commandButton update=":form:editUserPanel" value="Modifier"
-					oncomplete="PF('editUserDialog').show()">
-					<f:setPropertyActionListener value="#{user}"
-						target="#{userController.editUser}" />
+	<ui:define name="body">
+		<ui:fragment rendered="#{userModelBean.admin}">
+			<h1>Gestion des utilisateurs</h1>
+			<h:form id="form">
+				<p:dataTable id="gridUser" var="user"
+					value="#{userController.getListUser()}" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,50" rows="10">
+					<p:column headerText="Id">
+						<h:outputText value="#{user.id}" />
+					</p:column>
+
+					<p:column headerText="Nom de l'utilisateur">
+						<h:outputText value="#{user.name}" />
+					</p:column>
+
+					<p:column headerText="Role">
+						<h:outputText value="#{user.role.name}" />
+					</p:column>
+
+					<p:column headerText="Options">
+						<p:commandButton update=":form:editUserPanel" value="Modifier"
+							oncomplete="PF('editUserDialog').show()">
+							<f:setPropertyActionListener value="#{user}"
+								target="#{userController.editUser}" />
+						</p:commandButton>
+						<p:commandButton update=":form:deleteUserPanel" value="Supprimer"
+							oncomplete="PF('deleteUserDialog').show()">
+							<f:setPropertyActionListener value="#{user}"
+								target="#{userController.deleteUser}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:commandButton update=":form:createUserPanel"
+					value="Créer un nouveau niveau"
+					oncomplete="PF('createUserDialog').show()">
 				</p:commandButton>
-				<p:commandButton update=":form:deleteUserPanel" value="Supprimer"
-					oncomplete="PF('deleteUserDialog').show()">
-					<f:setPropertyActionListener value="#{user}"
-						target="#{userController.deleteUser}" />
-				</p:commandButton>
-			</p:column>
-		</p:dataTable>
 
-		<p:commandButton update=":form:createUserPanel"
-			value="Créer un nouveau niveau"
-			oncomplete="PF('createUserDialog').show()">
-		</p:commandButton>
+				<p:dialog header="Modifier un utilisateur"
+					widgetVar="editUserDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
+					<p:outputPanel id="editUserPanel" style="text-align:center;">
+						<p:panelGrid columns="2" cellpadding="5"
+							rendered="#{not empty userController.editUser}">
+							<p:outputLabel value="Name:" />
+							<p:inputText value="#{userController.editUser.name}" />
+							<p:outputLabel value="Role " />
+							<p:selectOneMenu value="#{userController.editUser.role.id}">
+								<f:selectItems
+									value="#{roleController.convertToListSelectItem(roleController.listRole)}" />
+							</p:selectOneMenu>
+							<h:inputHidden value="#{userController.editUser.id}" />
+							<p:commandButton update=":form:gridUser" value="Modifier"
+								action="#{userController.editUser(userController.editUser)}"
+								oncomplete="PF('editUserDialog').hide()">
+							</p:commandButton>
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
 
-		<p:dialog header="Modifier un utilisateur" widgetVar="editUserDialog"
-			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-			<p:outputPanel id="editUserPanel" style="text-align:center;">
-				<p:panelGrid columns="2" cellpadding="5"
-					rendered="#{not empty userController.editUser}">
-					<p:outputLabel value="Name:" />
-					<p:inputText value="#{userController.editUser.name}" />
-					<p:outputLabel value="Role " />
-					<p:selectOneMenu value="#{userController.editUser.role.id}">
-						<f:selectItems
-							value="#{roleController.convertToListSelectItem(roleController.listRole)}" />
-					</p:selectOneMenu>
-					<h:inputHidden value="#{userController.editUser.id}" />
-					<p:commandButton update=":form:gridUser" value="Modifier"
-						action="#{userController.editUser(userController.editUser)}"
-						oncomplete="PF('editUserDialog').hide()">
-					</p:commandButton>
-				</p:panelGrid>
-			</p:outputPanel>
-		</p:dialog>
+				<p:dialog header="Supprimer un utilisateur"
+					widgetVar="deleteUserDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
+					<p:outputPanel id="deleteUserPanel" style="text-align:center;">
+						<p:panelGrid columns="2" cellpadding="5"
+							rendered="#{not empty userController.deleteUser}">
+							<p:outputLabel
+								value="Etes-vous certain de vouloir supprimer l'utilisateur?" />
+							<h:inputHidden value="#{userController.deleteUser.id}" />
+							<p:commandButton update=":form:gridUser" value="Oui"
+								action="#{userController.deleteUser(userController.deleteUser.id)}"
+								oncomplete="PF('deleteUserDialog').hide()" />
+							<p:commandButton value="Non"
+								oncomplete="PF('deleteUserDialog').hide()" />
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
 
-		<p:dialog header="Supprimer un utilisateur"
-			widgetVar="deleteUserDialog" modal="true" showEffect="fade"
-			hideEffect="fade" resizable="false">
-			<p:outputPanel id="deleteUserPanel" style="text-align:center;">
-				<p:panelGrid columns="2" cellpadding="5"
-					rendered="#{not empty userController.deleteUser}">
-					<p:outputLabel
-						value="Etes-vous certain de vouloir supprimer l'utilisateur?" />
-					<h:inputHidden value="#{userController.deleteUser.id}" />
-					<p:commandButton update=":form:gridUser" value="Oui"
-						action="#{userController.deleteUser(userController.deleteUser.id)}"
-						oncomplete="PF('deleteUserDialog').hide()" />
-					<p:commandButton value="Non"
-						oncomplete="PF('deleteUserDialog').hide()" />
-				</p:panelGrid>
-			</p:outputPanel>
-		</p:dialog>
+				<p:dialog header="Créer un Utilisateur" widgetVar="createUserDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="createUserPanel" style="text-align:center;">
+						<p:panelGrid columns="2" cellpadding="5">
+							<p:outputLabel value="Nom" />
+							<p:inputText value="#{userController.addUser.name}"></p:inputText>
+							<p:outputLabel for="user" value="User" />
+							<p:selectOneMenu id="user"
+								value="#{userController.addUser.role.id}">
+								<f:selectItem itemLabel="Sélectionner un role" itemValue="" />
+								<f:selectItems
+									value="#{roleController.convertToListSelectItem(roleController.listRole)}" />
+							</p:selectOneMenu>
+							<p:commandButton update=":form:gridUser" value="Créer"
+								title="View"
+								action="#{userController.createUser(userController.addUser)}"
+								oncomplete="PF('createUserDialog').hide()">
+							</p:commandButton>
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
+		</ui:fragment>
+		<ui:fragment rendered="#{!userModelBean.admin}">
+			<h1>Accès refusé.</h1>
+		</ui:fragment>
+	</ui:define>
 
-		<p:dialog header="Créer un Utilisateur" widgetVar="createUserDialog"
-			modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-			<p:outputPanel id="createUserPanel" style="text-align:center;">
-				<p:panelGrid columns="2" cellpadding="5">
-					<p:outputLabel value="Nom" />
-					<p:inputText value="#{userController.addUser.name}"></p:inputText>
-					<p:outputLabel for="user" value="User" />
-					<p:selectOneMenu id="user"
-						value="#{userController.addUser.role.id}">
-						<f:selectItem itemLabel="Sélectionner un role" itemValue="" />
-						<f:selectItems
-							value="#{roleController.convertToListSelectItem(roleController.listRole)}" />
-					</p:selectOneMenu>
-					<p:commandButton update=":form:gridUser" value="Créer" title="View"
-						action="#{userController.createUser(userController.addUser)}"
-						oncomplete="PF('createUserDialog').hide()">
-					</p:commandButton>
-				</p:panelGrid>
-			</p:outputPanel>
-		</p:dialog>
-	</h:form>
-</body>
-</html>
+</ui:composition>

@@ -6,12 +6,13 @@
 
 
 	<ui:define name="title">
-	<meta charset="UTF-8"></meta>
+		<meta charset="UTF-8"></meta>
 		<title>Gestion des professeurs</title>
 	</ui:define>
 
 	<ui:define name="body">
-		<h1>Gestion des professeurs</h1>
+		<ui:fragment rendered="#{userModelBean.admin}">
+			<h1>Gestion des professeurs</h1>
 		<h:form id="form">
 
 			<p:dataTable id="gridTeacher" var="teach"
@@ -81,6 +82,10 @@
 				</p:outputPanel>
 			</p:dialog>
 		</h:form>
+		</ui:fragment>
+		<ui:fragment rendered="#{!userModelBean.admin}">
+			<h1>Accès refusé.</h1>
+		</ui:fragment>
 	</ui:define>
 
 </ui:composition>
