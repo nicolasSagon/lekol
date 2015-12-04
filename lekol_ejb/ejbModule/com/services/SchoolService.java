@@ -9,8 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 
-import com.entities.Cycle;
-import com.entities.School;
 import com.entities.School;
 
 /**
@@ -54,7 +52,16 @@ public class SchoolService implements SchoolServiceLocal {
 	public void saveSchool(School school) {
 		School l = this.getSchool(school.getId());
 		l.setName(school.getName());
-		em.merge(l);	
+		l.setAddress(school.getAddress());
+		l.setDirectPhone(school.getDirectPhone());
+		l.setDirectorMail(school.getDirectorMail());
+		l.setDirectorName(school.getDirectorName());
+		l.setSurface(school.getSurface());
+		l.setNumberRoom(school.getNumberRoom());
+		l.setFax(school.getFax());
+		l.setTypeSchool(school.getTypeSchool());
+		l.setPhone(school.getPhone());
+		em.merge(l);
 	}
 	
 }

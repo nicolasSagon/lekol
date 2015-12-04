@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import com.entities.TypeSchool;
-import com.entities.TypeSchool;
 import com.services.TypeSchoolService;
 
 @ManagedBean
