@@ -15,4 +15,6 @@ public interface ClassServiceLocal {
 	public void saveClass(Class classe);
 
 	public Class getById(int id);
+
+	public List<Class> getAllClass(int id);
 }

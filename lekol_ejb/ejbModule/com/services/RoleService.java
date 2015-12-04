@@ -1,6 +1,4 @@
 package com.services;
-
-import java.io.Console;
 import java.util.List;
 
 import javax.ejb.LocalBean;
