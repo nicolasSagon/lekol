@@ -14,21 +14,19 @@ import com.services.SchoolService;
 @ManagedBean
 public class SchoolController {
 
-	private School addSchool = new School();
-	private School editSchool = new School();
-	private School school = new School();
+	private School addSchool;
+	private School editSchool;
 
 	@EJB
 	private SchoolService service;
 	
-	public School getSchool() {
-		return school;
+	public SchoolController() {
+		this.addSchool = new School();
+		this.addSchool.setTypeSchool(new TypeSchool());
+		this.editSchool = new School();
+		this.editSchool.setTypeSchool(new TypeSchool());
 	}
 
-	public void setSchool(School school) {
-		this.school = school;
-	}
-	
 	public School getAddSchool() {
 		return addSchool;
 	}
@@ -36,19 +34,21 @@ public class SchoolController {
 	public void setAddSchool(School addSchool) {
 		this.addSchool = addSchool;
 	}
-	
+
 	public List<School> getListSchool() {
 		return service.getListSchool();
 	}
-	
+
+	public void createSchool(School school) {
+		service.addSchool(school);
+		this.addSchool = new School();
+		this.addSchool.setTypeSchool(new TypeSchool());
+	}
+
 	public void editSchool(School School) {
 		service.saveSchool(School);
 		this.editSchool = new School();
-	}
-	
-	public void createschool(School school) {
-		service.addSchool(school);
-		this.addSchool = new School();
+		this.editSchool.setTypeSchool(new TypeSchool());
 	}
 	
 	public School getEditSchool() {
@@ -57,11 +57,6 @@ public class SchoolController {
 
 	public void setEditSchool(School editSchool) {
 		this.editSchool = editSchool;
-	}
-	
-	public void createSchool(School school) {
-		service.addSchool(school);
-		this.addSchool = new School();
 	}
 
 	public void saveSchool(School schoolTmp, int typeSchoolId) {

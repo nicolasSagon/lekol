@@ -10,8 +10,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 
 import com.entities.TypeSchool;
-import com.entities.TypeSchool;
-import com.entities.TypeSchool;
 
 /**
  * Session Bean implementation class schoolService
