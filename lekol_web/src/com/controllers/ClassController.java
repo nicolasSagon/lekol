@@ -5,18 +5,17 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import com.entities.Class;
-import com.entities.Cycle;
 import com.entities.Level;
 import com.entities.Room;
 import com.entities.School;
 import com.entities.Teacher;
 import com.services.ClassService;
 
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class ClassController {
 
@@ -79,7 +78,7 @@ public class ClassController {
 	
 	public SelectItem convertToSelectItem(Class classe) {
 		SelectItem item = new SelectItem();
-		//item.setLabel(classe.getName()); //TODO SACON DTC FDP RPZ  TMTC SWAGON :-)
+		item.setLabel(classe.getName());
 		item.setValue(classe.getId());
 		return item;
 	}

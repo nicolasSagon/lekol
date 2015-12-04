@@ -6,7 +6,6 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import com.entities.Class;
 
 /**
@@ -28,6 +27,12 @@ public class ClassService implements ClassServiceLocal {
 	@Override
 	public void addClass(Class classe) {
 		em.persist(classe);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Class> getAllClass(int id){
+		return em.createNativeQuery("SELECT * from Class Where schoolId = " + id, Class.class).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")

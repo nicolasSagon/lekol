@@ -2,17 +2,16 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://xmlns.jcp.org/jsf/html" template="/MasterPage.xhtml">
+	xmlns:h="http://xmlns.jcp.org/jsf/html" template="/masterPage.xhtml">
 
 
 	<ui:define name="title">
 		<meta charset="UTF-8"></meta>
-		<title>Gestion des niveaux</title>
+		<title>Gestion des roles</title>
 	</ui:define>
 
 	<ui:define name="body">
 		<ui:fragment rendered="#{userModelBean.admin}">
-			<h1>Gestion des niveaux</h1>
 			<h1>Gestion des roles</h1>
 			<h:form id="form">
 				<p:dataTable id="gridRole" var="role"
